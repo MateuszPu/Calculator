@@ -9,7 +9,7 @@ public class ToolsMenu extends JPanel
 {
 	private JButton additionButton, subtractionButton, multiplicationButton, divisionButton,
 			squaredButton, cubicButton, fibboButton, medianButton, dotButton, resultButton,
-			backspaceButton;
+			backspaceButton, factorialButton;
 
 	public ToolsMenu()
 	{
@@ -30,6 +30,7 @@ public class ToolsMenu extends JPanel
 		cubicButton = new JButton("^3");
 		fibboButton = new JButton("Fibbo");
 		medianButton = new JButton("Median");
+		factorialButton = new JButton("n!");
 		resultButton = new JButton("=");
 		backspaceButton = new JButton("Backspace");
 
@@ -42,6 +43,7 @@ public class ToolsMenu extends JPanel
 		this.add(cubicButton);
 		this.add(fibboButton);
 		this.add(medianButton);
+		this.add(factorialButton);
 		this.add(resultButton);
 		this.add(backspaceButton);
 	}
@@ -89,6 +91,11 @@ public class ToolsMenu extends JPanel
 	public void addMedianListener(ActionListener listenerForMedian)
 	{
 		medianButton.addActionListener(listenerForMedian);
+	}
+
+	public void addFactorialListener(ActionListener listenerForFactorial)
+	{
+		factorialButton.addActionListener(listenerForFactorial);
 	}
 
 	public void addResultListener(ActionListener listenerForResult)

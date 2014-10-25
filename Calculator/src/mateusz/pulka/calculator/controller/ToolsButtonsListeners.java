@@ -31,6 +31,7 @@ public class ToolsButtonsListeners
 		toolsMenu.addCubicListener(new CubicListener());
 		toolsMenu.addFibboListener(new FibboListener());
 		toolsMenu.addMedianListener(new MedianListener());
+		toolsMenu.addFactorialListener(new FactorialListener());
 		toolsMenu.addResultListener(new ResultListener());
 		toolsMenu.addBackspaceListener(new BackspaceListener());
 	}
@@ -95,8 +96,9 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			System.out.println(model.fib(Integer.parseInt(display.getText())));
-			display.setText("" + model.fib(Integer.parseInt(display.getText())));
+			// TODO split to smaller method
+			// TODO try catch NumberFormatException
+			display.setText("" + model.fibonacci(Integer.parseInt(display.getText())));
 			model.setFinished(true);
 		}
 	}
@@ -106,6 +108,18 @@ public class ToolsButtonsListeners
 		public void actionPerformed(ActionEvent e)
 		{
 			display.append("median");
+		}
+	}
+
+	class FactorialListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			// TODO split to smaller method
+			// TODO try catch NumberFormatException
+			display.setText(""
+					+ model.factorial(BigInteger.valueOf((Long.parseLong(display.getText())))));
+			model.setFinished(true);
 		}
 	}
 
@@ -119,11 +133,14 @@ public class ToolsButtonsListeners
 
 	class BackspaceListener implements ActionListener
 	{
-		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO exception
-			display.setText(display.getText().substring(0, display.getText().length() - 1));
+			if (display.getText().length() > 0)
+			{
+				// TODO split to smaller method
+				// TODO exception
+				display.setText(display.getText().substring(0, display.getText().length() - 1));
+			}
 		}
 	}
 }

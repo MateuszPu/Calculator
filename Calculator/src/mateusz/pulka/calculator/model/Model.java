@@ -1,5 +1,6 @@
 package mateusz.pulka.calculator.model;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Model
@@ -8,10 +9,9 @@ public class Model
 
 	public Model()
 	{
-
 	}
 
-	public BigInteger fib(int place)
+	public BigInteger fibonacci(int place)
 	{
 		BigInteger prev1 = new BigInteger("0");
 		BigInteger prev2 = new BigInteger("1");
@@ -23,6 +23,26 @@ public class Model
 		}
 		return prev2;
 	}
+
+	public BigInteger factorial(BigInteger n)
+	{
+		BigInteger result = BigInteger.ONE;
+
+		while (!n.equals(BigInteger.ZERO))
+		{
+			result = result.multiply(n);
+			n = n.subtract(BigInteger.ONE);
+		}
+		return result;
+	}
+
+	// public BigDecimal factorial(BigDecimal n)
+	// {
+	// if (n.equals(BigDecimal.ZERO))
+	// return BigDecimal.ONE;
+	// else
+	// return n.multiply(factorial(n.subtract(BigDecimal.ONE)));
+	// }
 
 	public boolean isFinished()
 	{

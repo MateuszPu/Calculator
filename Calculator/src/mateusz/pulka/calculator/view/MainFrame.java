@@ -34,7 +34,10 @@ public class MainFrame extends JFrame
 		initializeNumberMenuComponents();
 		initializeDisplayComponents();
 
-		JPanel mainLayoutforApplication = new JPanel(new BorderLayout());
+		int hgap = 5; // the horizontal gap.
+		int vgap = 5; // the vertical gap.
+
+		JPanel mainLayoutforApplication = new JPanel(new BorderLayout(hgap, vgap));
 		mainLayoutforApplication.add(toolsMenu, BorderLayout.SOUTH);
 		mainLayoutforApplication.add(numberMenu, BorderLayout.CENTER);
 		mainLayoutforApplication.add(scrollPane, BorderLayout.NORTH);
@@ -57,6 +60,7 @@ public class MainFrame extends JFrame
 	{
 		display = new JTextArea();
 		display.setEditable(false);
+		display.setLineWrap(true);
 		scrollPane = new JScrollPane(display);
 	}
 
