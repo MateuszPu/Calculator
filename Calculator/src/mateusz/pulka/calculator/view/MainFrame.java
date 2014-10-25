@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import mateusz.pulka.calculator.model.Model;
 
 public class MainFrame extends JFrame
 {
 	private ToolsMenu toolsMenu;
 	private NumberMenu numberMenu;
+	// private JTextArea display;
 	private JTextArea display;
 
 	public MainFrame(Model model)
@@ -26,6 +28,7 @@ public class MainFrame extends JFrame
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		setResizable(false);
 
 		initializeToolsMenuComponents();
 		initializeNumberMenuComponents();
@@ -54,5 +57,35 @@ public class MainFrame extends JFrame
 	{
 		display = new JTextArea();
 		display.setEditable(false);
+	}
+
+	public ToolsMenu getToolsMenu()
+	{
+		return toolsMenu;
+	}
+
+	public void setToolsMenu(ToolsMenu toolsMenu)
+	{
+		this.toolsMenu = toolsMenu;
+	}
+
+	public NumberMenu getNumberMenu()
+	{
+		return numberMenu;
+	}
+
+	public void setNumberMenu(NumberMenu numberMenu)
+	{
+		this.numberMenu = numberMenu;
+	}
+
+	public JTextArea getDisplay()
+	{
+		return display;
+	}
+
+	public void setDisplay(JTextArea display)
+	{
+		this.display = display;
 	}
 }

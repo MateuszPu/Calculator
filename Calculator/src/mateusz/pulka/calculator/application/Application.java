@@ -1,6 +1,7 @@
 package mateusz.pulka.calculator.application;
 
 import javax.swing.SwingUtilities;
+import mateusz.pulka.calculator.controller.Controller;
 import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.MainFrame;
 
@@ -22,6 +23,6 @@ public class Application
 	{
 		Model model = new Model();
 		MainFrame view = new MainFrame(model);
-//		new Controller(view, model);
+		new Controller(view, model);
 	}
 }

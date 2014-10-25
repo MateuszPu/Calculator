@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 public class ToolsMenu extends JPanel
 {
 	private JButton additionButton, subtractionButton, multiplicationButton, divisionButton,
-			squaredButton, cubicButton, fibboButton, medianButton, dotButton, resultButton;
+			squaredButton, cubicButton, fibboButton, medianButton, dotButton, resultButton,
+			backspaceButton;
 
 	public ToolsMenu()
 	{
@@ -30,6 +31,7 @@ public class ToolsMenu extends JPanel
 		fibboButton = new JButton("Fibbo");
 		medianButton = new JButton("Median");
 		resultButton = new JButton("=");
+		backspaceButton = new JButton("Backspace");
 
 		this.add(additionButton);
 		this.add(subtractionButton);
@@ -41,6 +43,7 @@ public class ToolsMenu extends JPanel
 		this.add(fibboButton);
 		this.add(medianButton);
 		this.add(resultButton);
+		this.add(backspaceButton);
 	}
 
 	public void addAdditionListener(ActionListener listenerForAddition)
@@ -91,5 +94,10 @@ public class ToolsMenu extends JPanel
 	public void addResultListener(ActionListener listenerForResult)
 	{
 		resultButton.addActionListener(listenerForResult);
+	}
+
+	public void addBackspaceListener(ActionListener listenerForBackspace)
+	{
+		backspaceButton.addActionListener(listenerForBackspace);
 	}
 }

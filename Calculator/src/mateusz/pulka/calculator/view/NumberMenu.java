@@ -1,13 +1,14 @@
 package mateusz.pulka.calculator.view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class NumberMenu extends JPanel
 {
-	private JButton numberOneButton, numberTwoButton, numberTrheeButton, numberFourButton,
+	private JButton numberOneButton, numberTwoButton, numberThreeButton, numberFourButton,
 			numberFiveButton, numberSixButton, numberSevenButton, numberEightButton,
 			numberNineButton, numberZeroButton;
 	private JLabel emptyPlace;
@@ -24,7 +25,7 @@ public class NumberMenu extends JPanel
 
 		numberOneButton = new JButton("1");
 		numberTwoButton = new JButton("2");
-		numberTrheeButton = new JButton("3");
+		numberThreeButton = new JButton("3");
 		numberFourButton = new JButton("4");
 		numberFiveButton = new JButton("5");
 		numberSixButton = new JButton("6");
@@ -36,7 +37,7 @@ public class NumberMenu extends JPanel
 
 		this.add(numberOneButton);
 		this.add(numberTwoButton);
-		this.add(numberTrheeButton);
+		this.add(numberThreeButton);
 		this.add(numberFourButton);
 		this.add(numberFiveButton);
 		this.add(numberSixButton);
@@ -45,5 +46,55 @@ public class NumberMenu extends JPanel
 		this.add(numberNineButton);
 		this.add(emptyPlace); // adding empty square to calculator looks nicer
 		this.add(numberZeroButton);
+	}
+
+	public void addNumberOneListener(ActionListener listenerForNumberOne)
+	{
+		numberOneButton.addActionListener(listenerForNumberOne);
+	}
+
+	public void addNumberTwoListener(ActionListener listenerForNumberTwo)
+	{
+		numberTwoButton.addActionListener(listenerForNumberTwo);
+	}
+
+	public void addNumberThreeListener(ActionListener listenerForNumberThree)
+	{
+		numberThreeButton.addActionListener(listenerForNumberThree);
+	}
+
+	public void addNumberFourListener(ActionListener listenerForNumberFour)
+	{
+		numberFourButton.addActionListener(listenerForNumberFour);
+	}
+
+	public void addNumberFiveListener(ActionListener listenerForNumberFive)
+	{
+		numberFiveButton.addActionListener(listenerForNumberFive);
+	}
+
+	public void addNumberSixListener(ActionListener listenerForNumberSix)
+	{
+		numberSixButton.addActionListener(listenerForNumberSix);
+	}
+
+	public void addNumberSevenListener(ActionListener listenerForNumberSeven)
+	{
+		numberSevenButton.addActionListener(listenerForNumberSeven);
+	}
+
+	public void addNumberEightListener(ActionListener listenerForNumberEight)
+	{
+		numberEightButton.addActionListener(listenerForNumberEight);
+	}
+
+	public void addNumberNineListener(ActionListener listenerForNumberNine)
+	{
+		numberNineButton.addActionListener(listenerForNumberNine);
+	}
+
+	public void addNumberZeroListener(ActionListener listenerForNumberZero)
+	{
+		numberZeroButton.addActionListener(listenerForNumberZero);
 	}
 }
