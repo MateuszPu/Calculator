@@ -3,16 +3,16 @@ package mateusz.pulka.calculator.view;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import mateusz.pulka.calculator.model.Model;
 
 public class MainFrame extends JFrame
 {
 	private ToolsMenu toolsMenu;
 	private NumberMenu numberMenu;
-	// private JTextArea display;
 	private JTextArea display;
+	private JScrollPane scrollPane;
 
 	public MainFrame(Model model)
 	{
@@ -37,7 +37,7 @@ public class MainFrame extends JFrame
 		JPanel mainLayoutforApplication = new JPanel(new BorderLayout());
 		mainLayoutforApplication.add(toolsMenu, BorderLayout.SOUTH);
 		mainLayoutforApplication.add(numberMenu, BorderLayout.CENTER);
-		mainLayoutforApplication.add(display, BorderLayout.NORTH);
+		mainLayoutforApplication.add(scrollPane, BorderLayout.NORTH);
 		add(mainLayoutforApplication);
 	}
 
@@ -57,6 +57,7 @@ public class MainFrame extends JFrame
 	{
 		display = new JTextArea();
 		display.setEditable(false);
+		scrollPane = new JScrollPane(display);
 	}
 
 	public ToolsMenu getToolsMenu()

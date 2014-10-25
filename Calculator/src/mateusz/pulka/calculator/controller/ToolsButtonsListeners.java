@@ -2,19 +2,23 @@ package mateusz.pulka.calculator.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
 import javax.swing.JTextArea;
+import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.MainFrame;
 import mateusz.pulka.calculator.view.ToolsMenu;
 
 public class ToolsButtonsListeners
 {
 	private MainFrame view;
+	private Model model;
 	private ToolsMenu toolsMenu;
 	private JTextArea display;
 
-	public ToolsButtonsListeners(MainFrame view)
+	public ToolsButtonsListeners(MainFrame view, Model model)
 	{
 		this.view = view;
+		this.model = model;
 		toolsMenu = view.getToolsMenu();
 		display = view.getDisplay();
 
@@ -91,7 +95,9 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("fibbo");
+			System.out.println(model.fib(Integer.parseInt(display.getText())));
+			display.setText("" + model.fib(Integer.parseInt(display.getText())));
+			model.setFinished(true);
 		}
 	}
 

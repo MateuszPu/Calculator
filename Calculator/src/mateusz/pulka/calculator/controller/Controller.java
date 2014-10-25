@@ -14,8 +14,8 @@ public class Controller
 	{
 		this.view = view;
 		this.model = model;
-		setToolsButtonsListeners(new ToolsButtonsListeners(view));
-		setNumbersButtonsListeners(new NumbersButtonsListeners(view));
+		setToolsButtonsListeners(new ToolsButtonsListeners(view, model));
+		setNumbersButtonsListeners(new NumbersButtonsListeners(view, model));
 	}
 
 	public MainFrame getView()

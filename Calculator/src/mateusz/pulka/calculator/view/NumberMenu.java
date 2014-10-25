@@ -10,7 +10,7 @@ public class NumberMenu extends JPanel
 {
 	private JButton numberOneButton, numberTwoButton, numberThreeButton, numberFourButton,
 			numberFiveButton, numberSixButton, numberSevenButton, numberEightButton,
-			numberNineButton, numberZeroButton;
+			numberNineButton, numberZeroButton, leftBracketButton, rightBracketButton;
 	private JLabel emptyPlace;
 
 	public NumberMenu()
@@ -33,7 +33,8 @@ public class NumberMenu extends JPanel
 		numberEightButton = new JButton("8");
 		numberNineButton = new JButton("9");
 		numberZeroButton = new JButton("0");
-		emptyPlace = new JLabel();
+		leftBracketButton = new JButton("(");
+		rightBracketButton = new JButton(")");
 
 		this.add(numberOneButton);
 		this.add(numberTwoButton);
@@ -44,8 +45,10 @@ public class NumberMenu extends JPanel
 		this.add(numberSevenButton);
 		this.add(numberEightButton);
 		this.add(numberNineButton);
-		this.add(emptyPlace); // adding empty square to calculator looks nicer
+		this.add(leftBracketButton);
 		this.add(numberZeroButton);
+		this.add(rightBracketButton);
+
 	}
 
 	public void addNumberOneListener(ActionListener listenerForNumberOne)
@@ -96,5 +99,15 @@ public class NumberMenu extends JPanel
 	public void addNumberZeroListener(ActionListener listenerForNumberZero)
 	{
 		numberZeroButton.addActionListener(listenerForNumberZero);
+	}
+
+	public void addLeftBracketListener(ActionListener listenerForLeftBracket)
+	{
+		leftBracketButton.addActionListener(listenerForLeftBracket);
+	}
+
+	public void addRightBracketListener(ActionListener listenerForRightBracket)
+	{
+		rightBracketButton.addActionListener(listenerForRightBracket);
 	}
 }
