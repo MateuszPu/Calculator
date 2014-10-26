@@ -115,7 +115,6 @@ public class NumbersButtonsListeners
 			else
 			{
 				display.append("5");
-				model.setMathExpressionUsed(false);
 			}
 			model.setMathExpressionUsed(false);
 		}
@@ -133,7 +132,6 @@ public class NumbersButtonsListeners
 			else
 			{
 				display.append("6");
-				model.setMathExpressionUsed(false);
 			}
 			model.setMathExpressionUsed(false);
 		}
@@ -151,7 +149,6 @@ public class NumbersButtonsListeners
 			else
 			{
 				display.append("7");
-				model.setMathExpressionUsed(false);
 			}
 			model.setMathExpressionUsed(false);
 		}
@@ -169,7 +166,6 @@ public class NumbersButtonsListeners
 			else
 			{
 				display.append("8");
-				model.setMathExpressionUsed(false);
 			}
 			model.setMathExpressionUsed(false);
 		}
@@ -187,7 +183,6 @@ public class NumbersButtonsListeners
 			else
 			{
 				display.append("9");
-				model.setMathExpressionUsed(false);
 			}
 			model.setMathExpressionUsed(false);
 		}
@@ -205,7 +200,6 @@ public class NumbersButtonsListeners
 			else
 			{
 				display.append("0");
-				model.setMathExpressionUsed(false);
 			}
 			model.setMathExpressionUsed(false);
 		}
@@ -225,6 +219,7 @@ public class NumbersButtonsListeners
 				display.append("(");
 			}
 			model.setMathExpressionUsed(false);
+			view.rightBracketShouldBeUsed();
 		}
 	}
 
@@ -242,6 +237,7 @@ public class NumbersButtonsListeners
 				display.append(")");
 			}
 			model.setMathExpressionUsed(false);
+			view.leftBracketShouldBeUsed();
 		}
 	}
 }

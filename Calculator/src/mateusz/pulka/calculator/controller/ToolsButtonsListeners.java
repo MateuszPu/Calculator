@@ -42,7 +42,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isMathExpressionUsed())
+			if (isLastSignMathExpression())
 			{
 				display.setText(display.getText().substring(0, display.getText().length() - 1));
 				display.append("+");
@@ -50,7 +50,6 @@ public class ToolsButtonsListeners
 			else
 			{
 				display.append("+");
-				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
 			}
 		}
@@ -60,7 +59,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isMathExpressionUsed())
+			if (isLastSignMathExpression())
 			{
 				display.setText(display.getText().substring(0, display.getText().length() - 1));
 				display.append("-");
@@ -68,7 +67,6 @@ public class ToolsButtonsListeners
 			else
 			{
 				display.append("-");
-				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
 			}
 		}
@@ -78,7 +76,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isMathExpressionUsed())
+			if (isLastSignMathExpression())
 			{
 				display.setText(display.getText().substring(0, display.getText().length() - 1));
 				display.append("*");
@@ -86,7 +84,6 @@ public class ToolsButtonsListeners
 			else
 			{
 				display.append("*");
-				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
 			}
 		}
@@ -96,7 +93,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isMathExpressionUsed())
+			if (isLastSignMathExpression())
 			{
 				display.setText(display.getText().substring(0, display.getText().length() - 1));
 				display.append("/");
@@ -104,7 +101,6 @@ public class ToolsButtonsListeners
 			else
 			{
 				display.append("/");
-				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
 			}
 		}
@@ -186,6 +182,7 @@ public class ToolsButtonsListeners
 				JOptionPane.showMessageDialog(view, "Number should be an integer");
 			}
 			model.setCalculationFinished(true);
+			model.setDotUsed(false);
 		}
 	}
 
@@ -198,6 +195,7 @@ public class ToolsButtonsListeners
 
 			model.getArrayForMedian().add(doubleFromText);
 			model.setCalculationFinished(true);
+			model.setDotUsed(false);
 		}
 	}
 
@@ -230,6 +228,7 @@ public class ToolsButtonsListeners
 				JOptionPane.showMessageDialog(view, "Number should be an integer");
 			}
 			model.setCalculationFinished(true);
+			model.setDotUsed(false);
 		}
 	}
 
@@ -244,9 +243,16 @@ public class ToolsButtonsListeners
 			}
 			else
 			{
-				ReversePolishNotation onp = new ReversePolishNotation(display.getText());
-				double result = model.getResult(onp.toString());
-				display.setText("" + result);
+				try
+				{
+					ReversePolishNotation onp = new ReversePolishNotation(display.getText());
+					double result = model.getResult(onp.toString());
+					display.setText("" + result);
+				}
+				catch (NumberFormatException event)
+				{
+					display.setText("Infinity");
+				}
 			}
 			model.setDotUsed(false);
 			model.setMathExpressionUsed(false);
@@ -260,11 +266,32 @@ public class ToolsButtonsListeners
 		{
 			if (display.getText().length() > 0)
 			{
-				// TODO finish deleting last character with minus plus etc
-				// TODO split to smaller method
-				// TODO exception
+				if (lastCharacter().equals(")"))
+				{
+					view.rightBracketShouldBeUsed();
+				}
+
+				if (lastCharacter().equals("("))
+				{
+					view.leftBracketShouldBeUsed();
+				}
+
 				display.setText(display.getText().substring(0, display.getText().length() - 1));
 			}
 		}
+	}
+
+	private String lastCharacter()
+	{
+		String textInDisplay = display.getText();
+		int placeOfLastCharacter = textInDisplay.length() - 1;
+		String lastCharacter = textInDisplay.substring(placeOfLastCharacter);
+		return lastCharacter;
+	}
+
+	private boolean isLastSignMathExpression()
+	{
+		return lastCharacter().equals("*") || lastCharacter().equals("/")
+				|| lastCharacter().equals("+") || lastCharacter().equals("-");
 	}
 }

@@ -33,6 +33,7 @@ public class NumberMenu extends JPanel
 		numberZeroButton = new JButton("0");
 		leftBracketButton = new JButton("(");
 		rightBracketButton = new JButton(")");
+		setRightBracketDisabled();
 
 		this.add(numberOneButton);
 		this.add(numberTwoButton);
@@ -107,5 +108,25 @@ public class NumberMenu extends JPanel
 	public void addRightBracketListener(ActionListener listenerForRightBracket)
 	{
 		rightBracketButton.addActionListener(listenerForRightBracket);
+	}
+
+	public void setRightBracketEnabled()
+	{
+		rightBracketButton.setEnabled(true);
+	}
+
+	public void setRightBracketDisabled()
+	{
+		rightBracketButton.setEnabled(false);
+	}
+
+	public void setLeftBracketEnabled()
+	{
+		leftBracketButton.setEnabled(true);
+	}
+
+	public void setLeftBracketDisabled()
+	{
+		leftBracketButton.setEnabled(false);
 	}
 }

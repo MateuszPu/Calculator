@@ -105,4 +105,16 @@ public class MainFrame extends JFrame
 	{
 		this.display = display;
 	}
+
+	public void leftBracketShouldBeUsed()
+	{
+		numberMenu.setLeftBracketEnabled();
+		numberMenu.setRightBracketDisabled();
+	}
+
+	public void rightBracketShouldBeUsed()
+	{
+		numberMenu.setRightBracketEnabled();
+		numberMenu.setLeftBracketDisabled();
+	}
 }
