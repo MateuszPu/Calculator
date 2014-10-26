@@ -10,6 +10,7 @@ import javax.script.ScriptException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
+import mateusz.pulka.calculator.model.ReversePolishNotation;
 import mateusz.pulka.calculator.view.MainFrame;
 import mateusz.pulka.calculator.view.ToolsMenu;
 
@@ -196,7 +197,11 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			// System.out.println(model.median(dArr));
+			String textInDisplay = display.getText();
+			double doubleFromText = Double.parseDouble(textInDisplay);
+
+			model.getArrayForMedian().add(doubleFromText);
+			model.setCalculationFinished(true);
 		}
 	}
 
@@ -236,8 +241,15 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			if (!model.getArrayForMedian().isEmpty())
+			{
+				display.setText("" + model.median());
+				model.getArrayForMedian().clear();
+			}
+
+			ReversePolishNotation onp = new ReversePolishNotation(display.getText());
+			System.out.println(onp);
 			// TODO use here ONP
-			System.out.println(display.getText());
 			model.setDotUsed(false);
 			model.setMathExpressionUsed(false);
 		}

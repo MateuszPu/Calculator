@@ -1,6 +1,7 @@
 package mateusz.pulka.calculator.model;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Model
@@ -8,7 +9,7 @@ public class Model
 	private boolean isCalculationFinished;
 	private boolean isMathExpressionUsed;
 	private boolean isDotUsed;
-	private double[] arrayForMedian;
+	private ArrayList<Double> arrayForMedian = new ArrayList<Double>();
 
 	public Model()
 	{
@@ -39,18 +40,27 @@ public class Model
 		return result;
 	}
 
-	public double median(double[] medianArray)
+	public double median()
 	{
-		Arrays.sort(medianArray);
-		int middle = medianArray.length / 2;
-		if (medianArray.length % 2 == 1)
+		Double[] listForMedian = new Double[arrayForMedian.size()];
+		arrayForMedian.toArray(listForMedian);
+		Arrays.sort(listForMedian);
+
+		int middle = listForMedian.length / 2;
+		if (listForMedian.length % 2 == 1)
 		{
-			return medianArray[middle];
+			return listForMedian[middle];
 		}
 		else
 		{
-			return (medianArray[middle - 1] + medianArray[middle]) / 2.0;
+			return (listForMedian[middle - 1] + listForMedian[middle]) / 2.0;
 		}
+	}
+
+	public double getResult(String expressionPostfix)
+	{
+
+		return 0;
 	}
 
 	public boolean isCalculationFinished()
@@ -83,12 +93,12 @@ public class Model
 		this.isDotUsed = isDotUsed;
 	}
 
-	public double[] getArrayForMedian()
+	public ArrayList<Double> getArrayForMedian()
 	{
 		return arrayForMedian;
 	}
 
-	public void setArrayForMedian(double[] arrayForMedian)
+	public void setArrayForMedian(ArrayList<Double> arrayForMedian)
 	{
 		this.arrayForMedian = arrayForMedian;
 	}
