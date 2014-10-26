@@ -3,6 +3,7 @@ package mateusz.pulka.calculator.model;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Model
 {
@@ -10,6 +11,7 @@ public class Model
 	private boolean isMathExpressionUsed;
 	private boolean isDotUsed;
 	private ArrayList<Double> arrayForMedian = new ArrayList<Double>();
+	private Stack<Double> arguments = new Stack<Double>();
 
 	public Model()
 	{
@@ -59,8 +61,7 @@ public class Model
 
 	public double getResult(String expressionPostfix)
 	{
-
-		return 0;
+		return ReversePolishNotationCalc.calc(expressionPostfix);
 	}
 
 	public boolean isCalculationFinished()

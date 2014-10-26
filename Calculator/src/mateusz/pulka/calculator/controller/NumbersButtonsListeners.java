@@ -48,6 +48,7 @@ public class NumbersButtonsListeners
 			{
 				display.append("1");
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -64,6 +65,7 @@ public class NumbersButtonsListeners
 			{
 				display.append("2");
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -80,6 +82,7 @@ public class NumbersButtonsListeners
 			{
 				display.append("3");
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -96,6 +99,7 @@ public class NumbersButtonsListeners
 			{
 				display.append("4");
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -107,13 +111,13 @@ public class NumbersButtonsListeners
 			{
 				display.setText("5");
 				model.setCalculationFinished(false);
-				model.setMathExpressionUsed(false);
 			}
 			else
 			{
 				display.append("5");
 				model.setMathExpressionUsed(false);
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -125,13 +129,13 @@ public class NumbersButtonsListeners
 			{
 				display.setText("6");
 				model.setCalculationFinished(false);
-				model.setMathExpressionUsed(false);
 			}
 			else
 			{
 				display.append("6");
 				model.setMathExpressionUsed(false);
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -143,13 +147,13 @@ public class NumbersButtonsListeners
 			{
 				display.setText("7");
 				model.setCalculationFinished(false);
-				model.setMathExpressionUsed(false);
 			}
 			else
 			{
 				display.append("7");
 				model.setMathExpressionUsed(false);
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -161,13 +165,13 @@ public class NumbersButtonsListeners
 			{
 				display.setText("8");
 				model.setCalculationFinished(false);
-				model.setMathExpressionUsed(false);
 			}
 			else
 			{
 				display.append("8");
 				model.setMathExpressionUsed(false);
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -179,13 +183,13 @@ public class NumbersButtonsListeners
 			{
 				display.setText("9");
 				model.setCalculationFinished(false);
-				model.setMathExpressionUsed(false);
 			}
 			else
 			{
 				display.append("9");
 				model.setMathExpressionUsed(false);
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -197,13 +201,13 @@ public class NumbersButtonsListeners
 			{
 				display.setText("0");
 				model.setCalculationFinished(false);
-				model.setMathExpressionUsed(false);
 			}
 			else
 			{
 				display.append("0");
 				model.setMathExpressionUsed(false);
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -220,6 +224,7 @@ public class NumbersButtonsListeners
 			{
 				display.append("(");
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -236,6 +241,7 @@ public class NumbersButtonsListeners
 			{
 				display.append(")");
 			}
+			model.setMathExpressionUsed(false);
 		}
 	}
 }

@@ -2,11 +2,7 @@ package mateusz.pulka.calculator.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.math.BigInteger;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
@@ -53,9 +49,9 @@ public class ToolsButtonsListeners
 			}
 			else
 			{
+				display.append("+");
 				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
-				display.append("+");
 			}
 		}
 	}
@@ -71,9 +67,9 @@ public class ToolsButtonsListeners
 			}
 			else
 			{
+				display.append("-");
 				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
-				display.append("-");
 			}
 		}
 	}
@@ -89,9 +85,9 @@ public class ToolsButtonsListeners
 			}
 			else
 			{
+				display.append("*");
 				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
-				display.append("*");
 			}
 		}
 	}
@@ -107,9 +103,9 @@ public class ToolsButtonsListeners
 			}
 			else
 			{
+				display.append("/");
 				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
-				display.append("/");
 			}
 		}
 	}
@@ -246,12 +242,15 @@ public class ToolsButtonsListeners
 				display.setText("" + model.median());
 				model.getArrayForMedian().clear();
 			}
-
-			ReversePolishNotation onp = new ReversePolishNotation(display.getText());
-			System.out.println(onp);
-			// TODO use here ONP
+			else
+			{
+				ReversePolishNotation onp = new ReversePolishNotation(display.getText());
+				double result = model.getResult(onp.toString());
+				display.setText("" + result);
+			}
 			model.setDotUsed(false);
 			model.setMathExpressionUsed(false);
+			model.setCalculationFinished(true);
 		}
 	}
 
