@@ -43,17 +43,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (isLastSignMathExpression())
-			{
-				display.setText(display.getText().substring(0, display.getText().length() - 1));
-				display.append("+");
-			}
-			else
-			{
-				display.append("+");
-				model.setDotUsed(false);
-				model.setCalculationFinished(false);
-			}
+			setMathExpressionToDisplay("+");
 		}
 	}
 
@@ -61,17 +51,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (isLastSignMathExpression())
-			{
-				display.setText(display.getText().substring(0, display.getText().length() - 1));
-				display.append("-");
-			}
-			else
-			{
-				display.append("-");
-				model.setDotUsed(false);
-				model.setCalculationFinished(false);
-			}
+			setMathExpressionToDisplay("-");
 		}
 	}
 
@@ -79,17 +59,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (isLastSignMathExpression())
-			{
-				display.setText(display.getText().substring(0, display.getText().length() - 1));
-				display.append("*");
-			}
-			else
-			{
-				display.append("*");
-				model.setDotUsed(false);
-				model.setCalculationFinished(false);
-			}
+			setMathExpressionToDisplay("*");
 		}
 	}
 
@@ -97,30 +67,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (isLastSignMathExpression())
-			{
-				display.setText(display.getText().substring(0, display.getText().length() - 1));
-				display.append("/");
-			}
-			else
-			{
-				display.append("/");
-				model.setDotUsed(false);
-				model.setCalculationFinished(false);
-			}
-		}
-	}
-
-	class DotListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
-			if (!model.isDotUsed())
-			{
-				display.append(".");
-				model.setDotUsed(true);
-				model.setCalculationFinished(false);
-			}
+			setMathExpressionToDisplay("/");
 		}
 	}
 
@@ -128,16 +75,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isMathExpressionUsed())
+			setMathExpressionToDisplay("^");
+		}
+	}
+
+	class DotListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			if (!(hasNumberDot(lastNumberInExpression()) || isLastSignMathExpression()))
 			{
-				display.setText(display.getText().substring(0, display.getText().length() - 2));
-				display.append("^");
-			}
-			else
-			{
-				display.append("^");
-				model.setMathExpressionUsed(true);
-				model.setDotUsed(false);
+				display.append(".");
 				model.setCalculationFinished(false);
 			}
 		}
@@ -147,8 +95,9 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			int maxValueForFibbo = 99999; // for greater integer application
-											// works too slow
+			final int maxValueForFibbo = 99999; // for greater integer
+												// application
+			// works too slow
 			String textInDisplay = display.getText();
 			try
 			{
@@ -170,7 +119,6 @@ public class ToolsButtonsListeners
 				JOptionPane.showMessageDialog(view, "Number should be an integer");
 			}
 			model.setCalculationFinished(true);
-			model.setDotUsed(false);
 			model.setCalculationFinished(false);
 		}
 	}
@@ -192,7 +140,6 @@ public class ToolsButtonsListeners
 			}
 
 			model.setCalculationFinished(true);
-			model.setDotUsed(false);
 		}
 	}
 
@@ -200,7 +147,8 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			int maxValueForFactorial = 9999; // for greater integer application
+			final int maxValueForFactorial = 9999; // for greater integer
+													// application
 			// works too slow
 			String textInDisplay = display.getText();
 
@@ -225,14 +173,13 @@ public class ToolsButtonsListeners
 				JOptionPane.showMessageDialog(view, "Number should be an integer");
 			}
 			model.setCalculationFinished(true);
-			model.setDotUsed(false);
 			model.setCalculationFinished(false);
 		}
 	}
 
 	class ResultListener implements ActionListener
 	{
-		NumberFormat nf = new DecimalFormat("#,###.############");
+		NumberFormat nf = new DecimalFormat("##.############");
 
 		public void actionPerformed(ActionEvent e)
 		{
@@ -256,10 +203,9 @@ public class ToolsButtonsListeners
 					display.setText("Infinity");
 				}
 			}
-			model.setDotUsed(false);
-			model.setMathExpressionUsed(false);
 			model.setCalculationFinished(true);
 		}
+
 	}
 
 	class BackspaceListener implements ActionListener
@@ -277,10 +223,74 @@ public class ToolsButtonsListeners
 				{
 					view.leftBracketShouldBeUsed();
 				}
-
-				display.setText(display.getText().substring(0, display.getText().length() - 1));
+				display.setText(expressionWithoutLastCharacter());
 			}
 		}
+	}
+
+	private void setMathExpressionToDisplay(String mathExpression)
+	{
+		if (isLastSignMathExpression())
+		{
+			display.setText(expressionWithoutLastCharacter());
+			display.append(mathExpression);
+		}
+		else
+		{
+			display.append(mathExpression);
+			model.setCalculationFinished(false);
+		}
+	}
+
+	private String expressionWithoutLastCharacter()
+	{
+		String wholeExpression = display.getText();
+		int beginIndex = 0;
+		int endIngex = wholeExpression.length() - 1;
+		return wholeExpression.substring(beginIndex, endIngex);
+	}
+
+	private boolean hasNumberDot(String number)
+	{
+		if (number.contains("."))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private String lastNumberInExpression()
+	{
+		String wholeExpression = display.getText();
+		return wholeExpression.substring(placeOfLastMathSign(), wholeExpression.length());
+	}
+
+	private int placeOfLastMathSign()
+	{
+		String wholeExpression = display.getText();
+		int lengthOfExpression = wholeExpression.length();
+
+		while (lengthOfExpression > 0)
+		{
+			String lastCharacter = wholeExpression.substring(lengthOfExpression - 1,
+					lengthOfExpression);
+			if (lastCharacter.equals("*") || lastCharacter.equals("/") || lastCharacter.equals("+")
+					|| lastCharacter.equals("-") || lastCharacter.equals("^"))
+			{
+				return lengthOfExpression;
+			}
+
+			lengthOfExpression--;
+		}
+
+		return lengthOfExpression;
+	}
+
+	private boolean isLastSignMathExpression()
+	{
+		return lastCharacter().equals("*") || lastCharacter().equals("/")
+				|| lastCharacter().equals("+") || lastCharacter().equals("-")
+				|| lastCharacter().equals("^");
 	}
 
 	private String lastCharacter()
@@ -289,11 +299,5 @@ public class ToolsButtonsListeners
 		int placeOfLastCharacter = textInDisplay.length() - 1;
 		String lastCharacter = textInDisplay.substring(placeOfLastCharacter);
 		return lastCharacter;
-	}
-
-	private boolean isLastSignMathExpression()
-	{
-		return lastCharacter().equals("*") || lastCharacter().equals("/")
-				|| lastCharacter().equals("+") || lastCharacter().equals("-");
 	}
 }

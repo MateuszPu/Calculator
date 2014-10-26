@@ -11,10 +11,6 @@ public class NumberMenu extends JPanel
 			numberFiveButton, numberSixButton, numberSevenButton, numberEightButton,
 			numberNineButton, numberZeroButton, leftBracketButton, rightBracketButton;
 
-	public NumberMenu()
-	{
-	}
-
 	public void setNumber()
 	{
 		int numberOfColumns = 3; // = 0 many columns as necessary

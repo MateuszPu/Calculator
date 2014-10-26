@@ -39,16 +39,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("1");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("1");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("1");
 		}
 	}
 
@@ -56,16 +47,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("2");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("2");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("2");
 		}
 	}
 
@@ -73,16 +55,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("3");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("3");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("3");
 		}
 	}
 
@@ -90,16 +63,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("4");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("4");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("4");
 		}
 	}
 
@@ -107,16 +71,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("5");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("5");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("5");
 		}
 	}
 
@@ -124,16 +79,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("6");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("6");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("6");
 		}
 	}
 
@@ -141,16 +87,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("7");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("7");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("7");
 		}
 	}
 
@@ -158,16 +95,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("8");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("8");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("8");
 		}
 	}
 
@@ -175,16 +103,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("9");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("9");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("9");
 		}
 	}
 
@@ -192,16 +111,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("0");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("0");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("0");
 		}
 	}
 
@@ -209,16 +119,7 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText("(");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append("(");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay("(");
 			view.rightBracketShouldBeUsed();
 		}
 	}
@@ -227,17 +128,21 @@ public class NumbersButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (model.isCalculationFinished())
-			{
-				display.setText(")");
-				model.setCalculationFinished(false);
-			}
-			else
-			{
-				display.append(")");
-			}
-			model.setMathExpressionUsed(false);
+			setNumberToDisplay(")");
 			view.leftBracketShouldBeUsed();
+		}
+	}
+
+	private void setNumberToDisplay(String character)
+	{
+		if (model.isCalculationFinished())
+		{
+			display.setText(character);
+			model.setCalculationFinished(false);
+		}
+		else
+		{
+			display.append(character);
 		}
 	}
 }

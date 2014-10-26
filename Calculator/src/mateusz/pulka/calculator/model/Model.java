@@ -7,8 +7,6 @@ import java.util.Arrays;
 public class Model
 {
 	private boolean isCalculationFinished;
-	private boolean isMathExpressionUsed;
-	private boolean isDotUsed;
 	private ArrayList<Double> arrayForMedian = new ArrayList<Double>();
 
 	public Model()
@@ -70,26 +68,6 @@ public class Model
 	public void setCalculationFinished(boolean isFinished)
 	{
 		this.isCalculationFinished = isFinished;
-	}
-
-	public boolean isMathExpressionUsed()
-	{
-		return isMathExpressionUsed;
-	}
-
-	public void setMathExpressionUsed(boolean isMathExpressionUsed)
-	{
-		this.isMathExpressionUsed = isMathExpressionUsed;
-	}
-
-	public boolean isDotUsed()
-	{
-		return isDotUsed;
-	}
-
-	public void setDotUsed(boolean isDotUsed)
-	{
-		this.isDotUsed = isDotUsed;
 	}
 
 	public ArrayList<Double> getArrayForMedian()
