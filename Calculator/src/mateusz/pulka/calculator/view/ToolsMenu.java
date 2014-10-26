@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 public class ToolsMenu extends JPanel
 {
 	private JButton additionButton, subtractionButton, multiplicationButton, divisionButton,
-			squaredButton, cubicButton, fibboButton, medianButton, dotButton, resultButton,
-			backspaceButton, factorialButton;
+			powerButton, fibboButton, medianButton, dotButton, resultButton, backspaceButton,
+			factorialButton;
 
 	public ToolsMenu()
 	{
@@ -26,8 +26,7 @@ public class ToolsMenu extends JPanel
 		multiplicationButton = new JButton("*");
 		divisionButton = new JButton("/");
 		dotButton = new JButton(".");
-		squaredButton = new JButton("^2");
-		cubicButton = new JButton("^3");
+		powerButton = new JButton("^");
 		fibboButton = new JButton("Fibbo");
 		medianButton = new JButton("Median");
 		factorialButton = new JButton("n!");
@@ -39,8 +38,7 @@ public class ToolsMenu extends JPanel
 		this.add(multiplicationButton);
 		this.add(divisionButton);
 		this.add(dotButton);
-		this.add(squaredButton);
-		this.add(cubicButton);
+		this.add(powerButton);
 		this.add(fibboButton);
 		this.add(medianButton);
 		this.add(factorialButton);
@@ -75,12 +73,7 @@ public class ToolsMenu extends JPanel
 
 	public void addSquaredListener(ActionListener listenerForSquared)
 	{
-		squaredButton.addActionListener(listenerForSquared);
-	}
-
-	public void addCubicListener(ActionListener listenerForCubic)
-	{
-		cubicButton.addActionListener(listenerForCubic);
+		powerButton.addActionListener(listenerForSquared);
 	}
 
 	public void addFibboListener(ActionListener listenerForFibbo)

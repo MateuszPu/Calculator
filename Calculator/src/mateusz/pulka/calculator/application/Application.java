@@ -1,5 +1,6 @@
 package mateusz.pulka.calculator.application;
 
+import java.util.Locale;
 import javax.swing.SwingUtilities;
 import mateusz.pulka.calculator.controller.Controller;
 import mateusz.pulka.calculator.model.Model;
@@ -14,6 +15,7 @@ public class Application
 			@Override
 			public void run()
 			{
+				Locale.setDefault(Locale.US);
 				runApplication();
 			}
 		});

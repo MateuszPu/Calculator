@@ -18,12 +18,12 @@ public class ReversePolishNotation
 	{
 
 		Stack<String> stack = new Stack<String>();
-		StringTokenizer st = new StringTokenizer(expressionInfix, "+-*/()", true);
+		StringTokenizer st = new StringTokenizer(expressionInfix, "+-*/()^", true);
 
 		while (st.hasMoreTokens())
 		{
 			String s = st.nextToken();
-			if (s.equals("+") || s.equals("*") || s.equals("-") || s.equals("/"))
+			if (s.equals("+") || s.equals("*") || s.equals("-") || s.equals("/") || s.equals("^"))
 			{
 				while (!stack.empty() && priority(stack.peek()) >= priority(s))
 					expressionPostfix += stack.pop() + " ";
@@ -50,6 +50,8 @@ public class ReversePolishNotation
 			return 1;
 		else if (operator.equals("*") || operator.equals("/"))
 			return 2;
+		else if (operator.equals("^"))
+			return 3;
 		else
 			return 0;
 	}

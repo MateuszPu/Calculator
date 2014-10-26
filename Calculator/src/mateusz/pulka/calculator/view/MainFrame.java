@@ -3,6 +3,7 @@ package mateusz.pulka.calculator.view;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -45,8 +46,11 @@ public class MainFrame extends JFrame
 		mainLayoutforApplication.add(scrollPane, BorderLayout.NORTH);
 		add(mainLayoutforApplication);
 
-		// TODO: how to use application
-		// JOptionPane.showMessageDialog(this, "help");
+		JOptionPane.showMessageDialog(this, "Welcome \n A couple of rules: \n"
+				+ "Provide math expression and press \"=\" to get result "
+				+ " \n For fibonacci and factorial provide number and press appropraite button "
+				+ "\n The last one: to provide an number to calculate median after each number "
+				+ "\n you should press median button to get result press \"=\"   ");
 
 	}
 

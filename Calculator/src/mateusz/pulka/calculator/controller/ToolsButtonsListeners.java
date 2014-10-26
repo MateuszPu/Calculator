@@ -3,6 +3,8 @@ package mateusz.pulka.calculator.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
@@ -29,8 +31,7 @@ public class ToolsButtonsListeners
 		toolsMenu.addMultiplicationListener(new MultiplicationListener());
 		toolsMenu.addDivisionListener(new DivisionListener());
 		toolsMenu.addDotListener(new DotListener());
-		toolsMenu.addSquaredListener(new SquaredListener());
-		toolsMenu.addCubicListener(new CubicListener());
+		toolsMenu.addSquaredListener(new PowerListener());
 		toolsMenu.addFibboListener(new FibboListener());
 		toolsMenu.addMedianListener(new MedianListener());
 		toolsMenu.addFactorialListener(new FactorialListener());
@@ -51,6 +52,7 @@ public class ToolsButtonsListeners
 			{
 				display.append("+");
 				model.setDotUsed(false);
+				model.setCalculationFinished(false);
 			}
 		}
 	}
@@ -68,6 +70,7 @@ public class ToolsButtonsListeners
 			{
 				display.append("-");
 				model.setDotUsed(false);
+				model.setCalculationFinished(false);
 			}
 		}
 	}
@@ -85,6 +88,7 @@ public class ToolsButtonsListeners
 			{
 				display.append("*");
 				model.setDotUsed(false);
+				model.setCalculationFinished(false);
 			}
 		}
 	}
@@ -102,6 +106,7 @@ public class ToolsButtonsListeners
 			{
 				display.append("/");
 				model.setDotUsed(false);
+				model.setCalculationFinished(false);
 			}
 		}
 	}
@@ -114,42 +119,26 @@ public class ToolsButtonsListeners
 			{
 				display.append(".");
 				model.setDotUsed(true);
+				model.setCalculationFinished(false);
 			}
 		}
 	}
 
-	class SquaredListener implements ActionListener
+	class PowerListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			if (model.isMathExpressionUsed())
 			{
 				display.setText(display.getText().substring(0, display.getText().length() - 2));
-				display.append("^2");
+				display.append("^");
 			}
 			else
 			{
+				display.append("^");
 				model.setMathExpressionUsed(true);
 				model.setDotUsed(false);
-				display.append("^2");
-			}
-		}
-	}
-
-	class CubicListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
-			if (model.isMathExpressionUsed())
-			{
-				display.setText(display.getText().substring(0, display.getText().length() - 2));
-				display.append("^3");
-			}
-			else
-			{
-				model.setMathExpressionUsed(true);
-				model.setDotUsed(false);
-				display.append("^3");
+				model.setCalculationFinished(false);
 			}
 		}
 	}
@@ -164,7 +153,6 @@ public class ToolsButtonsListeners
 			try
 			{
 				int textFromDisplayToInteger = Integer.parseInt(textInDisplay);
-				System.out.println(textFromDisplayToInteger);
 				if (textFromDisplayToInteger <= maxValueForFibbo && textFromDisplayToInteger > 0)
 				{
 					display.setText("" + model.fibonacci(textFromDisplayToInteger));
@@ -183,6 +171,7 @@ public class ToolsButtonsListeners
 			}
 			model.setCalculationFinished(true);
 			model.setDotUsed(false);
+			model.setCalculationFinished(false);
 		}
 	}
 
@@ -190,10 +179,18 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			String textInDisplay = display.getText();
-			double doubleFromText = Double.parseDouble(textInDisplay);
+			double doubleFromText;
+			try
+			{
+				String textInDisplay = display.getText();
+				doubleFromText = Double.parseDouble(textInDisplay);
+				model.getArrayForMedian().add(doubleFromText);
+			}
+			catch (NumberFormatException e1)
+			{
+				JOptionPane.showMessageDialog(view, "You should provide only one number");
+			}
 
-			model.getArrayForMedian().add(doubleFromText);
 			model.setCalculationFinished(true);
 			model.setDotUsed(false);
 		}
@@ -229,16 +226,21 @@ public class ToolsButtonsListeners
 			}
 			model.setCalculationFinished(true);
 			model.setDotUsed(false);
+			model.setCalculationFinished(false);
 		}
 	}
 
 	class ResultListener implements ActionListener
 	{
+		NumberFormat nf = new DecimalFormat("#,###.############");
+
 		public void actionPerformed(ActionEvent e)
 		{
 			if (!model.getArrayForMedian().isEmpty())
 			{
-				display.setText("" + model.median());
+				String result = nf.format(model.median());
+				// String result = String.valueOf(model.median());
+				display.setText(result);
 				model.getArrayForMedian().clear();
 			}
 			else
@@ -246,8 +248,8 @@ public class ToolsButtonsListeners
 				try
 				{
 					ReversePolishNotation onp = new ReversePolishNotation(display.getText());
-					double result = model.getResult(onp.toString());
-					display.setText("" + result);
+					String result = nf.format(model.getResult(onp.toString()));
+					display.setText(result);
 				}
 				catch (NumberFormatException event)
 				{

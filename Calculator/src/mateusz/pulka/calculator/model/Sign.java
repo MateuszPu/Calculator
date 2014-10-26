@@ -32,6 +32,20 @@ public enum Sign
 		{
 			return num2 / num1;
 		}
+	},
+	POWER("^")
+	{
+		public double apply(double num1, double num2)
+		{
+			return Math.pow(num1, num2);
+		}
+	},
+	ROOT("\u221A")
+	{
+		public double apply(double num1, double num2)
+		{
+			return Math.sqrt(num1);
+		}
 	};
 
 	private final String operatorText;
