@@ -2,7 +2,12 @@ package mateusz.pulka.calculator.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.math.BigInteger;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.MainFrame;
@@ -40,7 +45,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("+");
+			if (model.isMathExpressionUsed())
+			{
+				display.setText(display.getText().substring(0, display.getText().length() - 1));
+				display.append("+");
+			}
+			else
+			{
+				model.setMathExpressionUsed(true);
+				model.setDotUsed(false);
+				display.append("+");
+			}
 		}
 	}
 
@@ -48,7 +63,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("-");
+			if (model.isMathExpressionUsed())
+			{
+				display.setText(display.getText().substring(0, display.getText().length() - 1));
+				display.append("-");
+			}
+			else
+			{
+				model.setMathExpressionUsed(true);
+				model.setDotUsed(false);
+				display.append("-");
+			}
 		}
 	}
 
@@ -56,7 +81,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("*");
+			if (model.isMathExpressionUsed())
+			{
+				display.setText(display.getText().substring(0, display.getText().length() - 1));
+				display.append("*");
+			}
+			else
+			{
+				model.setMathExpressionUsed(true);
+				model.setDotUsed(false);
+				display.append("*");
+			}
 		}
 	}
 
@@ -64,7 +99,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("/");
+			if (model.isMathExpressionUsed())
+			{
+				display.setText(display.getText().substring(0, display.getText().length() - 1));
+				display.append("/");
+			}
+			else
+			{
+				model.setMathExpressionUsed(true);
+				model.setDotUsed(false);
+				display.append("/");
+			}
 		}
 	}
 
@@ -72,7 +117,11 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append(".");
+			if (!model.isDotUsed())
+			{
+				display.append(".");
+				model.setDotUsed(true);
+			}
 		}
 	}
 
@@ -80,7 +129,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("^2");
+			if (model.isMathExpressionUsed())
+			{
+				display.setText(display.getText().substring(0, display.getText().length() - 2));
+				display.append("^2");
+			}
+			else
+			{
+				model.setMathExpressionUsed(true);
+				model.setDotUsed(false);
+				display.append("^2");
+			}
 		}
 	}
 
@@ -88,7 +147,17 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("^3");
+			if (model.isMathExpressionUsed())
+			{
+				display.setText(display.getText().substring(0, display.getText().length() - 2));
+				display.append("^3");
+			}
+			else
+			{
+				model.setMathExpressionUsed(true);
+				model.setDotUsed(false);
+				display.append("^3");
+			}
 		}
 	}
 
@@ -96,10 +165,30 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO split to smaller method
-			// TODO try catch NumberFormatException
-			display.setText("" + model.fibonacci(Integer.parseInt(display.getText())));
-			model.setFinished(true);
+			int maxValueForFibbo = 99999; // for greater integer application
+											// works too slow
+			String textInDisplay = display.getText();
+			try
+			{
+				int textFromDisplayToInteger = Integer.parseInt(textInDisplay);
+				System.out.println(textFromDisplayToInteger);
+				if (textFromDisplayToInteger <= maxValueForFibbo && textFromDisplayToInteger > 0)
+				{
+					display.setText("" + model.fibonacci(textFromDisplayToInteger));
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(view, "Really do you want Fibonacci for "
+							+ textInDisplay + "? \n Max value for Fibonacci is: "
+							+ maxValueForFibbo + "\n Minimum value for factorial is: 1");
+				}
+
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(view, "Number should be an integer");
+			}
+			model.setCalculationFinished(true);
 		}
 	}
 
@@ -107,7 +196,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			display.append("median");
+			// System.out.println(model.median(dArr));
 		}
 	}
 
@@ -115,11 +204,31 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			// TODO split to smaller method
-			// TODO try catch NumberFormatException
-			display.setText(""
-					+ model.factorial(BigInteger.valueOf((Long.parseLong(display.getText())))));
-			model.setFinished(true);
+			int maxValueForFactorial = 9999; // for greater integer application
+			// works too slow
+			String textInDisplay = display.getText();
+
+			try
+			{
+				Long textFromDisplayToLong = Long.parseLong(textInDisplay);
+				if (textFromDisplayToLong <= maxValueForFactorial && textFromDisplayToLong > 0)
+				{
+					BigInteger numberConvertFromDisplay = BigInteger.valueOf(textFromDisplayToLong);
+					display.setText("" + model.factorial(numberConvertFromDisplay));
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(view, "Really do you want Fibonacci for "
+							+ textInDisplay + "? \n Maximum value for factorial is: "
+							+ maxValueForFactorial + "\n Minimum value for factorial is: 1");
+					;
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(view, "Number should be an integer");
+			}
+			model.setCalculationFinished(true);
 		}
 	}
 
@@ -127,7 +236,10 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			// TODO use here ONP
 			System.out.println(display.getText());
+			model.setDotUsed(false);
+			model.setMathExpressionUsed(false);
 		}
 	}
 
@@ -137,6 +249,7 @@ public class ToolsButtonsListeners
 		{
 			if (display.getText().length() > 0)
 			{
+				// TODO finish deleting last character with minus plus etc
 				// TODO split to smaller method
 				// TODO exception
 				display.setText(display.getText().substring(0, display.getText().length() - 1));

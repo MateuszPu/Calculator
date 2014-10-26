@@ -1,11 +1,14 @@
 package mateusz.pulka.calculator.model;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class Model
 {
-	private boolean isFinished;
+	private boolean isCalculationFinished;
+	private boolean isMathExpressionUsed;
+	private boolean isDotUsed;
+	private double[] arrayForMedian;
 
 	public Model()
 	{
@@ -36,21 +39,57 @@ public class Model
 		return result;
 	}
 
-	// public BigDecimal factorial(BigDecimal n)
-	// {
-	// if (n.equals(BigDecimal.ZERO))
-	// return BigDecimal.ONE;
-	// else
-	// return n.multiply(factorial(n.subtract(BigDecimal.ONE)));
-	// }
-
-	public boolean isFinished()
+	public double median(double[] medianArray)
 	{
-		return isFinished;
+		Arrays.sort(medianArray);
+		int middle = medianArray.length / 2;
+		if (medianArray.length % 2 == 1)
+		{
+			return medianArray[middle];
+		}
+		else
+		{
+			return (medianArray[middle - 1] + medianArray[middle]) / 2.0;
+		}
 	}
 
-	public void setFinished(boolean isFinished)
+	public boolean isCalculationFinished()
 	{
-		this.isFinished = isFinished;
+		return isCalculationFinished;
+	}
+
+	public void setCalculationFinished(boolean isFinished)
+	{
+		this.isCalculationFinished = isFinished;
+	}
+
+	public boolean isMathExpressionUsed()
+	{
+		return isMathExpressionUsed;
+	}
+
+	public void setMathExpressionUsed(boolean isMathExpressionUsed)
+	{
+		this.isMathExpressionUsed = isMathExpressionUsed;
+	}
+
+	public boolean isDotUsed()
+	{
+		return isDotUsed;
+	}
+
+	public void setDotUsed(boolean isDotUsed)
+	{
+		this.isDotUsed = isDotUsed;
+	}
+
+	public double[] getArrayForMedian()
+	{
+		return arrayForMedian;
+	}
+
+	public void setArrayForMedian(double[] arrayForMedian)
+	{
+		this.arrayForMedian = arrayForMedian;
 	}
 }

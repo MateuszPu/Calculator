@@ -1,6 +1,7 @@
 package mateusz.pulka.calculator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,15 +34,20 @@ public class MainFrame extends JFrame
 		initializeToolsMenuComponents();
 		initializeNumberMenuComponents();
 		initializeDisplayComponents();
+		setDisplayFont();
 
-		int hgap = 5; // the horizontal gap.
-		int vgap = 5; // the vertical gap.
+		int hgap = 0; // the horizontal gap.
+		int vgap = 10; // the vertical gap.
 
 		JPanel mainLayoutforApplication = new JPanel(new BorderLayout(hgap, vgap));
 		mainLayoutforApplication.add(toolsMenu, BorderLayout.SOUTH);
 		mainLayoutforApplication.add(numberMenu, BorderLayout.CENTER);
 		mainLayoutforApplication.add(scrollPane, BorderLayout.NORTH);
 		add(mainLayoutforApplication);
+
+		// TODO: how to use application
+		// JOptionPane.showMessageDialog(this, "help");
+
 	}
 
 	private void initializeToolsMenuComponents()
@@ -62,6 +68,12 @@ public class MainFrame extends JFrame
 		display.setEditable(false);
 		display.setLineWrap(true);
 		scrollPane = new JScrollPane(display);
+	}
+
+	private void setDisplayFont()
+	{
+		Font font = new Font("Calibri", Font.BOLD, 28);
+		display.setFont(font);
 	}
 
 	public ToolsMenu getToolsMenu()
