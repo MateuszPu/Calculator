@@ -8,6 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
+import mateusz.pulka.calculator.model.AxisJTextFilter;
 import mateusz.pulka.calculator.model.Model;
 
 public class MainFrame extends JFrame
@@ -17,6 +20,17 @@ public class MainFrame extends JFrame
 	private ToolsMenu toolsMenu;
 	private HistoryMenu historyMenu;
 	private JScrollPane scrollPane;
+	private JPanel mainLayoutforApplication;
+
+	public JPanel getMainLayoutforApplication()
+	{
+		return mainLayoutforApplication;
+	}
+
+	public void setMainLayoutforApplication(JPanel mainLayoutforApplication)
+	{
+		this.mainLayoutforApplication = mainLayoutforApplication;
+	}
 
 	public MainFrame(Model model)
 	{
@@ -48,7 +62,7 @@ public class MainFrame extends JFrame
 		southPanel.add(toolsMenu, BorderLayout.NORTH);
 		southPanel.add(historyMenu, BorderLayout.SOUTH);
 
-		JPanel mainLayoutforApplication = new JPanel();
+		mainLayoutforApplication = new JPanel();
 		mainLayoutforApplication.setLayout(new BorderLayout(hgap, vgap));
 		mainLayoutforApplication.add(scrollPane, BorderLayout.NORTH);
 		mainLayoutforApplication.add(numberMenu, BorderLayout.CENTER);
@@ -133,7 +147,10 @@ public class MainFrame extends JFrame
 
 	private void initializeDisplayComponents()
 	{
+		DocumentFilter onlyNumberFilter = new AxisJTextFilter();
 		display = new JTextArea();
+		// ((AbstractDocument)
+		// display.getDocument()).setDocumentFilter(onlyNumberFilter);
 		display.setEditable(false);
 		display.setLineWrap(true);
 		scrollPane = new JScrollPane(display);

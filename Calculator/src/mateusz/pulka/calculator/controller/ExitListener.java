@@ -75,8 +75,8 @@ public class ExitListener
 		Date date = new Date();
 		String fileName = dateFormat.format(date);
 
-		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName
-				+ ".myOwnEextension", true))))
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(".\\nowyFolder\\"
+				+ fileName + ".myHistoryEextension", true))))
 		{
 			while (!historyOfExpression.empty())
 			{

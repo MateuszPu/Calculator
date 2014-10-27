@@ -61,7 +61,7 @@ public class HistoryButtonsListeners
 			openFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 			openFile.setAcceptAllFileFilterUsed(false);
 			openFile.addChoosableFileFilter(new FileNameExtensionFilter("HistoryFile",
-					"myOwnEextension"));
+					"myHistoryEextension"));
 
 			int result = openFile.showOpenDialog(openFile);
 
