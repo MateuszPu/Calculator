@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.EmptyStackException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
@@ -83,7 +84,7 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (!(hasNumberDot(lastNumberInExpression()) || isLastSignMathExpression()))
+			if (!(hasNumberDot(lastNumberInExpression()) || display.getText().isEmpty() || isLastSignMathExpression()))
 			{
 				display.append(".");
 				model.setCalculationFinished(false);
@@ -119,7 +120,6 @@ public class ToolsButtonsListeners
 				JOptionPane.showMessageDialog(view, "Number should be an integer");
 			}
 			model.setCalculationFinished(true);
-			model.setCalculationFinished(false);
 		}
 	}
 
@@ -230,15 +230,18 @@ public class ToolsButtonsListeners
 
 	private void setMathExpressionToDisplay(String mathExpression)
 	{
-		if (isLastSignMathExpression())
+		if (!display.getText().isEmpty())
 		{
-			display.setText(expressionWithoutLastCharacter());
-			display.append(mathExpression);
-		}
-		else
-		{
-			display.append(mathExpression);
-			model.setCalculationFinished(false);
+			if (isLastSignMathExpression())
+			{
+				display.setText(expressionWithoutLastCharacter());
+				display.append(mathExpression);
+			}
+			else
+			{
+				display.append(mathExpression);
+				model.setCalculationFinished(false);
+			}
 		}
 	}
 
