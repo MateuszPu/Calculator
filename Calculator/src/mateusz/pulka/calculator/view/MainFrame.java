@@ -66,11 +66,14 @@ public class MainFrame extends JFrame
 		mainLayoutforApplication.add(southPanel, BorderLayout.SOUTH);
 		add(mainLayoutforApplication);
 
-		JOptionPane.showMessageDialog(this, "Welcome \n A couple of rules: \n"
-				+ "Provide math expression and press \"=\" to get result "
-				+ " \n For fibonacci and factorial provide number and press appropraite button "
-				+ "\n The last one: to provide an number to calculate median after each number "
-				+ "\n you should press median button to get result press \"=\"   ");
+		JOptionPane
+				.showMessageDialog(
+						this,
+						"Welcome \n A couple of rules: \n"
+								+ "Provide math expression and press \"=\" to get result "
+								+ " \n For fibonacci and factorial provide number and press appropraite button "
+								+ "\n The last one: Median: provide an number to calculate median after each number "
+								+ "\n you should press median button to get result press \"=\"   ");
 	}
 
 	public ToolsMenu getToolsMenu()

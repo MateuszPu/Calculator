@@ -143,7 +143,7 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (isLastSignMathExpression())
+			if (isLastSignMathExpression() || getDisplay().getText().isEmpty())
 			{
 				setNumberToDisplay("(");
 				getView().rightBracketShouldBeUsed();
