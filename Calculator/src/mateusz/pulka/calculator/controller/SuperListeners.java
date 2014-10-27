@@ -37,12 +37,12 @@ public abstract class SuperListeners
 		this.view = view;
 	}
 
-	public JTextArea getDisplay()
+	protected JTextArea getDisplay()
 	{
 		return display;
 	}
 
-	public void setDisplay(JTextArea display)
+	protected void setDisplay(JTextArea display)
 	{
 		this.display = display;
 	}

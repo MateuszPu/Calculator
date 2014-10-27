@@ -9,7 +9,12 @@ public class ReversePolishNotation
 
 	public ReversePolishNotation(String expression)
 	{
-		expressionInfix = expression;
+		StringBuilder sb = new StringBuilder(expression);
+		if (expression.startsWith("-"))
+		{
+			sb.insert(0, "0");
+		}
+		expressionInfix = sb.toString();
 		expressionPostfix = "";
 		infixToPostfix();
 	}

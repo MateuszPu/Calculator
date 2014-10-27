@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Stack;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.HistoryMenu;

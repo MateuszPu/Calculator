@@ -102,6 +102,18 @@ public class ReversePolishNotationCalcTest
 	}
 
 	@Test
+	public void testNegativeValues()
+	{
+		rpn = new ReversePolishNotation("-5*5");
+		int result1 = ReversePolishNotationCalc.calc(rpn.toString()).intValue();
+		assertEquals("result for -5*5 should be -25", -25, result1);
+
+		rpn = new ReversePolishNotation("-5+2*5");
+		int result2 = ReversePolishNotationCalc.calc(rpn.toString()).intValue();
+		assertEquals("result for -5+2*5 should be 5", 5, result2);
+	}
+
+	@Test
 	public void testMathExpressionOrder()
 	{
 		rpn = new ReversePolishNotation("2+2*2");
