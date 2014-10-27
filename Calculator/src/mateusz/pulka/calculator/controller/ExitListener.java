@@ -81,10 +81,10 @@ public class ExitListener extends SuperListeners
 			}
 			out.close();
 		}
-		catch (IOException e)
+		catch (IOException ex)
 		{
-			JOptionPane.showMessageDialog(getView(),
-					"upsss something goes wrong with saving history");
+			JOptionPane.showMessageDialog(getView(), "Save error: " + ex.getMessage(),
+					"Unable to save file", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

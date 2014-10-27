@@ -125,13 +125,14 @@ public class ToolsButtonsListeners extends SuperListeners
 			double doubleFromText;
 			try
 			{
-				String expressionInDisplay = getDisplay().getText();
-				doubleFromText = Double.parseDouble(expressionInDisplay);
+				String numberInDisplay = getDisplay().getText();
+				doubleFromText = Double.parseDouble(numberInDisplay);
 				getModel().getArrayForMedian().add(doubleFromText);
 			}
 			catch (NumberFormatException e1)
 			{
-				JOptionPane.showMessageDialog(getView(), "You should provide only one number");
+				JOptionPane.showMessageDialog(getView(),
+						"You should provide only one number not expression");
 			}
 
 			getModel().setCalculationFinished(true);
@@ -169,13 +170,12 @@ public class ToolsButtonsListeners extends SuperListeners
 				JOptionPane.showMessageDialog(getView(), "Number should be an integer");
 			}
 			getModel().setCalculationFinished(true);
-			getModel().setCalculationFinished(false);
 		}
 	}
 
 	class ResultListener implements ActionListener
 	{
-		NumberFormat nf = new DecimalFormat("##.############");
+		NumberFormat nf = new DecimalFormat("##.##########");
 
 		public void actionPerformed(ActionEvent e)
 		{
@@ -189,20 +189,23 @@ public class ToolsButtonsListeners extends SuperListeners
 			{
 				try
 				{
-					saveHistory(" ");
-					String expressionInDisplay = getDisplay().getText();
-					ReversePolishNotation revPolishNotation = new ReversePolishNotation(
-							expressionInDisplay);
-					String result = nf.format(getModel().getResult(revPolishNotation.toString()));
-					getDisplay().setText("");
-					getDisplay().append(result);
+					if (!isLastSignMathExpression())
+					{
+						saveHistory(" ");
+						String expressionInDisplay = getDisplay().getText();
+						ReversePolishNotation revPolishNotation = new ReversePolishNotation(
+								expressionInDisplay);
+						String result = nf.format(getModel()
+								.getResult(revPolishNotation.toString()));
+						getDisplay().setText(result);
+						getModel().setCalculationFinished(true);
+					}
 				}
 				catch (NumberFormatException event)
 				{
 					getDisplay().setText("Infinity");
 				}
 			}
-			getModel().setCalculationFinished(true);
 		}
 	}
 
@@ -304,10 +307,14 @@ public class ToolsButtonsListeners extends SuperListeners
 
 	private void saveHistory(String separator)
 	{
+		String illegalExpression = "/0";
 		String expressionInDisplay = getDisplay().getText();
-		getModel().addHistoryToList(expressionInDisplay, separator);
-		Stack<String> historyOfExpression = getModel().getHistoryOfExpression();
-		String lastSuccesExpression = historyOfExpression.peek();
-		getView().getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
+		if (!expressionInDisplay.contains(illegalExpression))
+		{
+			getModel().addHistoryToList(expressionInDisplay, separator);
+			Stack<String> historyOfExpression = getModel().getHistoryOfExpression();
+			String lastSuccesExpression = historyOfExpression.peek();
+			getView().getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
+		}
 	}
 }

@@ -13,8 +13,8 @@ public class NumberMenu extends JPanel
 
 	public void setNumber()
 	{
-		int numberOfColumns = 3; // = 0 many columns as necessary
-		int numberOfRows = 0; // 0 = many rows as necessary
+		final int numberOfColumns = 3; // = 0 many columns as necessary
+		final int numberOfRows = 0; // 0 = many rows as necessary
 		this.setLayout(new GridLayout(numberOfRows, numberOfColumns));
 
 		numberOneButton = new JButton("1");

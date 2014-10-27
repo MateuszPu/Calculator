@@ -99,6 +99,10 @@ public class ReversePolishNotationCalcTest
 		rpn = new ReversePolishNotation("3^3");
 		int result5 = ReversePolishNotationCalc.calc(rpn.toString()).intValue();
 		assertEquals("result for 3^3 should be 27", 27, result5);
+
+		rpn = new ReversePolishNotation("2^6");
+		int result6 = ReversePolishNotationCalc.calc(rpn.toString()).intValue();
+		assertEquals("result for 2^6 should be 64", 64, result6);
 	}
 
 	@Test

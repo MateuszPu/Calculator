@@ -36,8 +36,8 @@ public class MainFrame extends JFrame
 
 	public void prepareFrame()
 	{
-		int width = 300;
-		int height = 350;
+		final int width = 300;
+		final int height = 350;
 
 		setSize(width, height);
 		setLocationRelativeTo(null);
@@ -51,11 +51,11 @@ public class MainFrame extends JFrame
 		initializeHistoryComponenets();
 		setDisplayFont();
 
-		int hgap = 0; // the horizontal gap.
-		int vgap = 10; // the vertical gap.
+		final int hgap = 0; // the horizontal gap.
+		final int vgap = 10; // the vertical gap.
 
 		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BorderLayout());
+		southPanel.setLayout(new BorderLayout(hgap, vgap));
 		southPanel.add(toolsMenu, BorderLayout.NORTH);
 		southPanel.add(historyMenu, BorderLayout.SOUTH);
 
@@ -144,8 +144,9 @@ public class MainFrame extends JFrame
 
 	private void initializeDisplayComponents()
 	{
+		final int numberOfRows = 1;
 		display = new JTextArea();
-		display.setRows(1);
+		display.setRows(numberOfRows);
 		display.setEditable(false);
 		display.setLineWrap(true);
 		scrollPane = new JScrollPane(display);
@@ -153,7 +154,8 @@ public class MainFrame extends JFrame
 
 	private void setDisplayFont()
 	{
-		Font font = new Font("Calibri", Font.BOLD, 28);
+		final int sizeOfFont = 28;
+		Font font = new Font("Calibri", Font.BOLD, sizeOfFont);
 		display.setFont(font);
 	}
 

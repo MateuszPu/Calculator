@@ -2,7 +2,6 @@ package mateusz.pulka.calculator.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.MainFrame;
 import mateusz.pulka.calculator.view.NumberMenu;
