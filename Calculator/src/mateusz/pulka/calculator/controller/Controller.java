@@ -9,6 +9,7 @@ public class Controller
 	private Model model;
 	private ToolsButtonsListeners toolsButtonsListeners;
 	private NumbersButtonsListeners numbersButtonsListeners;
+	private HistoryButtonsListeners historyButtonsListeners;
 
 	public Controller(MainFrame view, Model model)
 	{
@@ -16,6 +17,7 @@ public class Controller
 		this.model = model;
 		setToolsButtonsListeners(new ToolsButtonsListeners(view, model));
 		setNumbersButtonsListeners(new NumbersButtonsListeners(view, model));
+		setHistoryButtonsListeners(new HistoryButtonsListeners(view, model));
 	}
 
 	public MainFrame getView()
@@ -56,5 +58,15 @@ public class Controller
 	public void setNumbersButtonsListeners(NumbersButtonsListeners numbersButtonsListeners)
 	{
 		this.numbersButtonsListeners = numbersButtonsListeners;
+	}
+
+	public HistoryButtonsListeners getHistoryButtonsListeners()
+	{
+		return historyButtonsListeners;
+	}
+
+	public void setHistoryButtonsListeners(HistoryButtonsListeners historyButtonsListeners)
+	{
+		this.historyButtonsListeners = historyButtonsListeners;
 	}
 }

@@ -186,7 +186,6 @@ public class ToolsButtonsListeners
 			if (!model.getArrayForMedian().isEmpty())
 			{
 				String result = nf.format(model.median());
-				// String result = String.valueOf(model.median());
 				display.setText(result);
 				model.getArrayForMedian().clear();
 			}
@@ -194,7 +193,9 @@ public class ToolsButtonsListeners
 			{
 				try
 				{
-					ReversePolishNotation onp = new ReversePolishNotation(display.getText());
+					String expression = display.getText();
+					ReversePolishNotation onp = new ReversePolishNotation(expression);
+					view.getHistoryMenu().addExpressionToCombobox(expression);
 					String result = nf.format(model.getResult(onp.toString()));
 					display.setText(result);
 				}

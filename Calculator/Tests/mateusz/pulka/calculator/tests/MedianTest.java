@@ -20,12 +20,12 @@ public class MedianTest
 		assertEquals("median of 1 2 3 should be 2", 2, model.median(), 0);
 
 		Double[] array2 =
-		{ 1.23, 2.53, 5.46 };
+		{ 2.53, 1.23, 5.46 };
 		model.setArrayForMedian(new ArrayList<Double>(Arrays.asList(array2)));
 		assertEquals("median of 1.23, 2.53, 5.46 should be 2.53", 2.53, model.median(), 2);
 
 		Double[] array3 =
-		{ 1.23, 2.53, 5.46, 7.3, 9.41, 11.53 };
+		{ 1.23, 11.53, 2.53, 5.46, 7.3, 9.41 };
 		model.setArrayForMedian(new ArrayList<Double>(Arrays.asList(array3)));
 		assertEquals("median of 1.23, 2.53, 5.46, 7.3, 9.41, 11.53 should be 6.38", 6.38,
 				model.median(), 2);

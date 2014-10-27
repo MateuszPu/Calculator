@@ -10,10 +10,6 @@ public class Model
 	private boolean isCalculationFinished;
 	private ArrayList<Double> arrayForMedian = new ArrayList<Double>();
 
-	public Model()
-	{
-	}
-
 	public BigInteger fibonacci(int place)
 	{
 		BigInteger prev1 = new BigInteger("0");

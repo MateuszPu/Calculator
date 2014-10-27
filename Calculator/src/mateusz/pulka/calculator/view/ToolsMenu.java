@@ -11,10 +11,6 @@ public class ToolsMenu extends JPanel
 			powerButton, fibboButton, medianButton, dotButton, resultButton, backspaceButton,
 			factorialButton;
 
-	public ToolsMenu()
-	{
-	}
-
 	public void setTools()
 	{
 		int numberOfColumns = 3; // = 0 many columns as necessary

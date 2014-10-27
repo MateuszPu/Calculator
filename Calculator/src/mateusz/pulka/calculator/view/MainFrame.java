@@ -2,6 +2,7 @@ package mateusz.pulka.calculator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -11,9 +12,10 @@ import mateusz.pulka.calculator.model.Model;
 
 public class MainFrame extends JFrame
 {
-	private ToolsMenu toolsMenu;
-	private NumberMenu numberMenu;
 	private JTextArea display;
+	private NumberMenu numberMenu;
+	private ToolsMenu toolsMenu;
+	private HistoryMenu historyMenu;
 	private JScrollPane scrollPane;
 
 	public MainFrame(Model model)
@@ -35,15 +37,22 @@ public class MainFrame extends JFrame
 		initializeToolsMenuComponents();
 		initializeNumberMenuComponents();
 		initializeDisplayComponents();
+		initializeHistoryComponenets();
 		setDisplayFont();
 
 		int hgap = 0; // the horizontal gap.
 		int vgap = 10; // the vertical gap.
 
-		JPanel mainLayoutforApplication = new JPanel(new BorderLayout(hgap, vgap));
-		mainLayoutforApplication.add(toolsMenu, BorderLayout.SOUTH);
-		mainLayoutforApplication.add(numberMenu, BorderLayout.CENTER);
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new BorderLayout());
+		southPanel.add(toolsMenu, BorderLayout.NORTH);
+		southPanel.add(historyMenu, BorderLayout.SOUTH);
+
+		JPanel mainLayoutforApplication = new JPanel();
+		mainLayoutforApplication.setLayout(new BorderLayout(hgap, vgap));
 		mainLayoutforApplication.add(scrollPane, BorderLayout.NORTH);
+		mainLayoutforApplication.add(numberMenu, BorderLayout.CENTER);
+		mainLayoutforApplication.add(southPanel, BorderLayout.SOUTH);
 		add(mainLayoutforApplication);
 
 		JOptionPane.showMessageDialog(this, "Welcome \n A couple of rules: \n"
@@ -51,33 +60,6 @@ public class MainFrame extends JFrame
 				+ " \n For fibonacci and factorial provide number and press appropraite button "
 				+ "\n The last one: to provide an number to calculate median after each number "
 				+ "\n you should press median button to get result press \"=\"   ");
-
-	}
-
-	private void initializeToolsMenuComponents()
-	{
-		toolsMenu = new ToolsMenu();
-		toolsMenu.setTools();
-	}
-
-	private void initializeNumberMenuComponents()
-	{
-		numberMenu = new NumberMenu();
-		numberMenu.setNumber();
-	}
-
-	private void initializeDisplayComponents()
-	{
-		display = new JTextArea();
-		display.setEditable(false);
-		display.setLineWrap(true);
-		scrollPane = new JScrollPane(display);
-	}
-
-	private void setDisplayFont()
-	{
-		Font font = new Font("Calibri", Font.BOLD, 28);
-		display.setFont(font);
 	}
 
 	public ToolsMenu getToolsMenu()
@@ -110,6 +92,16 @@ public class MainFrame extends JFrame
 		this.display = display;
 	}
 
+	public HistoryMenu getHistoryMenu()
+	{
+		return historyMenu;
+	}
+
+	public void setHistoryMenu(HistoryMenu historyMenu)
+	{
+		this.historyMenu = historyMenu;
+	}
+
 	public void leftBracketShouldBeUsed()
 	{
 		numberMenu.setLeftBracketEnabled();
@@ -120,5 +112,42 @@ public class MainFrame extends JFrame
 	{
 		numberMenu.setRightBracketEnabled();
 		numberMenu.setLeftBracketDisabled();
+	}
+
+	public void addExitListener(WindowListener listenerForExit)
+	{
+		addWindowListener(listenerForExit);
+	}
+
+	private void initializeToolsMenuComponents()
+	{
+		toolsMenu = new ToolsMenu();
+		toolsMenu.setTools();
+	}
+
+	private void initializeNumberMenuComponents()
+	{
+		numberMenu = new NumberMenu();
+		numberMenu.setNumber();
+	}
+
+	private void initializeDisplayComponents()
+	{
+		display = new JTextArea();
+		display.setEditable(false);
+		display.setLineWrap(true);
+		scrollPane = new JScrollPane(display);
+	}
+
+	private void setDisplayFont()
+	{
+		Font font = new Font("Calibri", Font.BOLD, 28);
+		display.setFont(font);
+	}
+
+	private void initializeHistoryComponenets()
+	{
+		historyMenu = new HistoryMenu();
+		historyMenu.setTools();
 	}
 }
