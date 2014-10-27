@@ -15,10 +15,12 @@ import mateusz.pulka.calculator.view.ToolsMenu;
 public class ToolsButtonsListeners extends SuperListeners
 {
 	private ToolsMenu toolsMenu;
+	private StringBuilder medianNumbers;
 
 	public ToolsButtonsListeners(MainFrame view, Model model)
 	{
 		super(view, model);
+		medianNumbers = new StringBuilder();
 		toolsMenu = view.getToolsMenu();
 
 		toolsMenu.addAdditionListener(new AdditionListener());
@@ -126,6 +128,8 @@ public class ToolsButtonsListeners extends SuperListeners
 			try
 			{
 				String numberInDisplay = getDisplay().getText();
+				medianNumbers.append(numberInDisplay);
+				medianNumbers.append(" ");
 				doubleFromText = Double.parseDouble(numberInDisplay);
 				getModel().getArrayForMedian().add(doubleFromText);
 			}
@@ -184,6 +188,10 @@ public class ToolsButtonsListeners extends SuperListeners
 				String result = nf.format(getModel().median());
 				getDisplay().setText(result);
 				getModel().getArrayForMedian().clear();
+				System.out.println(medianNumbers.toString());
+
+				getModel().addHistoryToList(medianNumbers.toString(), "Median of: ");
+				displayHistoryInCombobox();
 			}
 			else
 			{
@@ -290,21 +298,6 @@ public class ToolsButtonsListeners extends SuperListeners
 		return lengthOfExpression;
 	}
 
-	private boolean isLastSignMathExpression()
-	{
-		return lastCharacter().equals("*") || lastCharacter().equals("/")
-				|| lastCharacter().equals("+") || lastCharacter().equals("-")
-				|| lastCharacter().equals("^");
-	}
-
-	private String lastCharacter()
-	{
-		String expressionInDisplay = getDisplay().getText();
-		int placeOfLastCharacter = expressionInDisplay.length() - 1;
-		String lastCharacter = expressionInDisplay.substring(placeOfLastCharacter);
-		return lastCharacter;
-	}
-
 	private void saveHistory(String separator)
 	{
 		String illegalExpression = "/0";
@@ -312,9 +305,14 @@ public class ToolsButtonsListeners extends SuperListeners
 		if (!expressionInDisplay.contains(illegalExpression))
 		{
 			getModel().addHistoryToList(expressionInDisplay, separator);
-			Stack<String> historyOfExpression = getModel().getHistoryOfExpression();
-			String lastSuccesExpression = historyOfExpression.peek();
-			getView().getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
+			displayHistoryInCombobox();
 		}
+	}
+
+	private void displayHistoryInCombobox()
+	{
+		Stack<String> historyOfExpression = getModel().getHistoryOfExpression();
+		String lastSuccesExpression = historyOfExpression.peek();
+		getView().getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
 	}
 }

@@ -33,7 +33,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("1");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("1");
+			}
 		}
 	}
 
@@ -41,7 +44,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("2");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("2");
+			}
 		}
 	}
 
@@ -49,7 +55,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("3");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("3");
+			}
 		}
 	}
 
@@ -57,7 +66,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("4");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("4");
+			}
 		}
 	}
 
@@ -65,7 +77,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("5");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("5");
+			}
 		}
 	}
 
@@ -73,7 +88,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("6");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("6");
+			}
 		}
 	}
 
@@ -81,7 +99,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("7");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("7");
+			}
 		}
 	}
 
@@ -89,7 +110,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("8");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("8");
+			}
 		}
 	}
 
@@ -97,7 +121,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("9");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("9");
+			}
 		}
 	}
 
@@ -105,7 +132,10 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("0");
+			if (!isLastCharacterRightBracket())
+			{
+				setNumberToDisplay("0");
+			}
 		}
 	}
 
@@ -113,8 +143,11 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay("(");
-			getView().rightBracketShouldBeUsed();
+			if (isLastSignMathExpression())
+			{
+				setNumberToDisplay("(");
+				getView().rightBracketShouldBeUsed();
+			}
 		}
 	}
 
@@ -122,8 +155,11 @@ public class NumbersButtonsListeners extends SuperListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setNumberToDisplay(")");
-			getView().leftBracketShouldBeUsed();
+			if (!isLastSignMathExpression())
+			{
+				setNumberToDisplay(")");
+				getView().leftBracketShouldBeUsed();
+			}
 		}
 	}
 

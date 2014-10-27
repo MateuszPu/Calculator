@@ -17,6 +17,31 @@ public abstract class SuperListeners
 		setDisplay(view.getDisplay());
 	}
 
+	protected String lastCharacter()
+	{
+		String expressionInDisplay = display.getText();
+		if (!expressionInDisplay.isEmpty())
+		{
+			int placeOfLastCharacter = expressionInDisplay.length() - 1;
+			String lastCharacter = expressionInDisplay.substring(placeOfLastCharacter);
+			return lastCharacter;
+		}
+		return "";
+
+	}
+
+	protected boolean isLastSignMathExpression()
+	{
+		return lastCharacter().equals("*") || lastCharacter().equals("/")
+				|| lastCharacter().equals("+") || lastCharacter().equals("-")
+				|| lastCharacter().equals("^");
+	}
+
+	protected boolean isLastCharacterRightBracket()
+	{
+		return lastCharacter().equals(")");
+	}
+
 	protected Model getModel()
 	{
 		return model;
