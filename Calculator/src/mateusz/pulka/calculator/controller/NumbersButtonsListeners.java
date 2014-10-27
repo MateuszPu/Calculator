@@ -7,19 +7,14 @@ import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.MainFrame;
 import mateusz.pulka.calculator.view.NumberMenu;
 
-public class NumbersButtonsListeners
+public class NumbersButtonsListeners extends SuperListeners
 {
-	private MainFrame view;
-	private Model model;
 	private NumberMenu numberMenu;
-	private JTextArea display;
 
 	public NumbersButtonsListeners(MainFrame view, Model model)
 	{
-		this.view = view;
-		this.model = model;
+		super(view, model);
 		numberMenu = view.getNumberMenu();
-		display = view.getDisplay();
 
 		numberMenu.addNumberOneListener(new NumberOneListener());
 		numberMenu.addNumberTwoListener(new NumberTwoListener());
@@ -120,7 +115,7 @@ public class NumbersButtonsListeners
 		public void actionPerformed(ActionEvent e)
 		{
 			setNumberToDisplay("(");
-			view.rightBracketShouldBeUsed();
+			getView().rightBracketShouldBeUsed();
 		}
 	}
 
@@ -129,20 +124,20 @@ public class NumbersButtonsListeners
 		public void actionPerformed(ActionEvent e)
 		{
 			setNumberToDisplay(")");
-			view.leftBracketShouldBeUsed();
+			getView().leftBracketShouldBeUsed();
 		}
 	}
 
 	private void setNumberToDisplay(String character)
 	{
-		if (model.isCalculationFinished())
+		if (getModel().isCalculationFinished())
 		{
-			display.setText(character);
-			model.setCalculationFinished(false);
+			getDisplay().setText(character);
+			getModel().setCalculationFinished(false);
 		}
 		else
 		{
-			display.append(character);
+			getDisplay().append(character);
 		}
 	}
 }

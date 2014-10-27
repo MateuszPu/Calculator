@@ -7,25 +7,19 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Stack;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.model.ReversePolishNotation;
 import mateusz.pulka.calculator.view.MainFrame;
 import mateusz.pulka.calculator.view.ToolsMenu;
 
-public class ToolsButtonsListeners
+public class ToolsButtonsListeners extends SuperListeners
 {
-	private Model model;
-	private MainFrame view;
 	private ToolsMenu toolsMenu;
-	private JTextArea display;
 
 	public ToolsButtonsListeners(MainFrame view, Model model)
 	{
-		this.view = view;
-		this.model = model;
+		super(view, model);
 		toolsMenu = view.getToolsMenu();
-		display = view.getDisplay();
 
 		toolsMenu.addAdditionListener(new AdditionListener());
 		toolsMenu.addSubtractionListener(new SubtractionListner());
@@ -84,10 +78,10 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (!(hasNumberDot(lastNumberInExpression()) || display.getText().isEmpty() || isLastSignMathExpression()))
+			if (!(hasNumberDot(lastNumberInExpression()) || getDisplay().getText().isEmpty() || isLastSignMathExpression()))
 			{
-				display.append(".");
-				model.setCalculationFinished(false);
+				getDisplay().append(".");
+				getModel().setCalculationFinished(false);
 			}
 		}
 	}
@@ -99,27 +93,28 @@ public class ToolsButtonsListeners
 			final int maxValueForFibbo = 99999; // for greater integer
 												// application
 			// works too slow
-			String textInDisplay = display.getText();
+			String expressionInDisplay = getDisplay().getText();
 			try
 			{
-				int textFromDisplayToInteger = Integer.parseInt(textInDisplay);
+				int textFromDisplayToInteger = Integer.parseInt(expressionInDisplay);
 				if (textFromDisplayToInteger <= maxValueForFibbo && textFromDisplayToInteger > 0)
 				{
-					display.setText("" + model.fibonacci(textFromDisplayToInteger));
+					saveHistory(" Fibbo of: ");
+					getDisplay().setText("" + getModel().fibonacci(textFromDisplayToInteger));
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(view, "Really do you want Fibonacci for "
-							+ textInDisplay + "? \n Max value for Fibonacci is: "
+					JOptionPane.showMessageDialog(getView(), "Really do you want Fibonacci for "
+							+ expressionInDisplay + "? \n Max value for Fibonacci is: "
 							+ maxValueForFibbo + "\n Minimum value for factorial is: 1");
 				}
 
 			}
 			catch (NumberFormatException ex)
 			{
-				JOptionPane.showMessageDialog(view, "Number should be an integer");
+				JOptionPane.showMessageDialog(getView(), "Number should be an integer");
 			}
-			model.setCalculationFinished(true);
+			getModel().setCalculationFinished(true);
 		}
 	}
 
@@ -130,16 +125,16 @@ public class ToolsButtonsListeners
 			double doubleFromText;
 			try
 			{
-				String textInDisplay = display.getText();
-				doubleFromText = Double.parseDouble(textInDisplay);
-				model.getArrayForMedian().add(doubleFromText);
+				String expressionInDisplay = getDisplay().getText();
+				doubleFromText = Double.parseDouble(expressionInDisplay);
+				getModel().getArrayForMedian().add(doubleFromText);
 			}
 			catch (NumberFormatException e1)
 			{
-				JOptionPane.showMessageDialog(view, "You should provide only one number");
+				JOptionPane.showMessageDialog(getView(), "You should provide only one number");
 			}
 
-			model.setCalculationFinished(true);
+			getModel().setCalculationFinished(true);
 		}
 	}
 
@@ -150,30 +145,31 @@ public class ToolsButtonsListeners
 			final int maxValueForFactorial = 9999; // for greater integer
 													// application
 			// works too slow
-			String textInDisplay = display.getText();
+			String expressionInDisplay = getDisplay().getText();
 
 			try
 			{
-				Long textFromDisplayToLong = Long.parseLong(textInDisplay);
+				Long textFromDisplayToLong = Long.parseLong(expressionInDisplay);
 				if (textFromDisplayToLong <= maxValueForFactorial && textFromDisplayToLong > 0)
 				{
+					saveHistory(" Factorial of: ");
 					BigInteger numberConvertFromDisplay = BigInteger.valueOf(textFromDisplayToLong);
-					display.setText("" + model.factorial(numberConvertFromDisplay));
+					getDisplay().setText("" + getModel().factorial(numberConvertFromDisplay));
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(view, "Really do you want Fibonacci for "
-							+ textInDisplay + "? \n Maximum value for factorial is: "
+					JOptionPane.showMessageDialog(getView(), "Really do you want Fibonacci for "
+							+ expressionInDisplay + "? \n Maximum value for factorial is: "
 							+ maxValueForFactorial + "\n Minimum value for factorial is: 1");
 					;
 				}
 			}
 			catch (NumberFormatException ex)
 			{
-				JOptionPane.showMessageDialog(view, "Number should be an integer");
+				JOptionPane.showMessageDialog(getView(), "Number should be an integer");
 			}
-			model.setCalculationFinished(true);
-			model.setCalculationFinished(false);
+			getModel().setCalculationFinished(true);
+			getModel().setCalculationFinished(false);
 		}
 	}
 
@@ -183,33 +179,30 @@ public class ToolsButtonsListeners
 
 		public void actionPerformed(ActionEvent e)
 		{
-			if (!model.getArrayForMedian().isEmpty())
+			if (!getModel().getArrayForMedian().isEmpty())
 			{
-				String result = nf.format(model.median());
-				display.setText(result);
-				model.getArrayForMedian().clear();
+				String result = nf.format(getModel().median());
+				getDisplay().setText(result);
+				getModel().getArrayForMedian().clear();
 			}
 			else
 			{
 				try
 				{
-					String expression = display.getText();
-
-					model.addHistoryToList(expression);
-					Stack<String> historyOfExpression = model.getHistoryOfExpression();
-					String lastSuccesExpression = historyOfExpression.peek();
-					view.getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
-
-					ReversePolishNotation revPolishNotation = new ReversePolishNotation(expression);
-					String result = nf.format(model.getResult(revPolishNotation.toString()));
-					display.setText(result);
+					saveHistory(" ");
+					String expressionInDisplay = getDisplay().getText();
+					ReversePolishNotation revPolishNotation = new ReversePolishNotation(
+							expressionInDisplay);
+					String result = nf.format(getModel().getResult(revPolishNotation.toString()));
+					getDisplay().setText("");
+					getDisplay().append(result);
 				}
 				catch (NumberFormatException event)
 				{
-					display.setText("Infinity");
+					getDisplay().setText("Infinity");
 				}
 			}
-			model.setCalculationFinished(true);
+			getModel().setCalculationFinished(true);
 		}
 	}
 
@@ -217,45 +210,45 @@ public class ToolsButtonsListeners
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (display.getText().length() > 0)
+			if (getDisplay().getText().length() > 0)
 			{
 				if (lastCharacter().equals(")"))
 				{
-					view.rightBracketShouldBeUsed();
+					getView().rightBracketShouldBeUsed();
 				}
 
 				if (lastCharacter().equals("("))
 				{
-					view.leftBracketShouldBeUsed();
+					getView().leftBracketShouldBeUsed();
 				}
-				display.setText(expressionWithoutLastCharacter());
+				getDisplay().setText(expressionWithoutLastCharacter());
 			}
 		}
 	}
 
 	private void setMathExpressionToDisplay(String mathExpression)
 	{
-		if (!display.getText().isEmpty())
+		if (!getDisplay().getText().isEmpty())
 		{
 			if (isLastSignMathExpression())
 			{
-				display.setText(expressionWithoutLastCharacter());
-				display.append(mathExpression);
+				getDisplay().setText(expressionWithoutLastCharacter());
+				getDisplay().append(mathExpression);
 			}
 			else
 			{
-				display.append(mathExpression);
-				model.setCalculationFinished(false);
+				getDisplay().append(mathExpression);
+				getModel().setCalculationFinished(false);
 			}
 		}
 	}
 
 	private String expressionWithoutLastCharacter()
 	{
-		String wholeExpression = display.getText();
+		String expressionInDisplay = getDisplay().getText();
 		int beginIndex = 0;
-		int endIngex = wholeExpression.length() - 1;
-		return wholeExpression.substring(beginIndex, endIngex);
+		int endIngex = expressionInDisplay.length() - 1;
+		return expressionInDisplay.substring(beginIndex, endIngex);
 	}
 
 	private boolean hasNumberDot(String number)
@@ -269,18 +262,18 @@ public class ToolsButtonsListeners
 
 	private String lastNumberInExpression()
 	{
-		String wholeExpression = display.getText();
-		return wholeExpression.substring(placeOfLastMathSign(), wholeExpression.length());
+		String expressionInDisplay = getDisplay().getText();
+		return expressionInDisplay.substring(placeOfLastMathSign(), expressionInDisplay.length());
 	}
 
 	private int placeOfLastMathSign()
 	{
-		String wholeExpression = display.getText();
-		int lengthOfExpression = wholeExpression.length();
+		String expressionInDisplay = getDisplay().getText();
+		int lengthOfExpression = expressionInDisplay.length();
 
 		while (lengthOfExpression > 0)
 		{
-			String lastCharacter = wholeExpression.substring(lengthOfExpression - 1,
+			String lastCharacter = expressionInDisplay.substring(lengthOfExpression - 1,
 					lengthOfExpression);
 			if (lastCharacter.equals("*") || lastCharacter.equals("/") || lastCharacter.equals("+")
 					|| lastCharacter.equals("-") || lastCharacter.equals("^"))
@@ -303,9 +296,18 @@ public class ToolsButtonsListeners
 
 	private String lastCharacter()
 	{
-		String textInDisplay = display.getText();
-		int placeOfLastCharacter = textInDisplay.length() - 1;
-		String lastCharacter = textInDisplay.substring(placeOfLastCharacter);
+		String expressionInDisplay = getDisplay().getText();
+		int placeOfLastCharacter = expressionInDisplay.length() - 1;
+		String lastCharacter = expressionInDisplay.substring(placeOfLastCharacter);
 		return lastCharacter;
+	}
+
+	private void saveHistory(String separator)
+	{
+		String expressionInDisplay = getDisplay().getText();
+		getModel().addHistoryToList(expressionInDisplay, separator);
+		Stack<String> historyOfExpression = getModel().getHistoryOfExpression();
+		String lastSuccesExpression = historyOfExpression.peek();
+		getView().getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
 	}
 }

@@ -8,9 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.DocumentFilter;
-import mateusz.pulka.calculator.model.AxisJTextFilter;
 import mateusz.pulka.calculator.model.Model;
 
 public class MainFrame extends JFrame
@@ -147,10 +144,8 @@ public class MainFrame extends JFrame
 
 	private void initializeDisplayComponents()
 	{
-		DocumentFilter onlyNumberFilter = new AxisJTextFilter();
 		display = new JTextArea();
-		// ((AbstractDocument)
-		// display.getDocument()).setDocumentFilter(onlyNumberFilter);
+		display.setRows(1);
 		display.setEditable(false);
 		display.setLineWrap(true);
 		scrollPane = new JScrollPane(display);

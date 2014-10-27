@@ -60,9 +60,9 @@ public class Model
 		return ReversePolishNotationCalc.calc(expressionPostfix);
 	}
 
-	public void addHistoryToList(String mathExpression)
+	public void addHistoryToList(String mathExpression, String separator)
 	{
-		historyOfExpression.add("" + indexOfExpression + ". " + mathExpression);
+		historyOfExpression.add("" + indexOfExpression + "." + separator + mathExpression);
 		indexOfExpression++;
 	}
 

@@ -15,19 +15,14 @@ import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.HistoryMenu;
 import mateusz.pulka.calculator.view.MainFrame;
 
-public class HistoryButtonsListeners
+public class HistoryButtonsListeners extends SuperListeners
 {
-	private MainFrame view;
-	private Model model;
 	private HistoryMenu historyMenu;
-	private JTextArea display;
 
 	public HistoryButtonsListeners(MainFrame view, Model model)
 	{
-		this.view = view;
-		this.model = model;
+		super(view, model);
 		historyMenu = view.getHistoryMenu();
-		display = view.getDisplay();
 
 		historyMenu.addDisplayActionListener(new DisplayListener());
 		historyMenu.addReadHistoryActionListener(new ReadHistoryListener());
@@ -41,12 +36,16 @@ public class HistoryButtonsListeners
 			if (!historyMenu.isComboboxEmpty())
 			{
 				String selectedHistory = historyMenu.getSelectedItemFromCombobox();
-				int indexOfDot = selectedHistory.indexOf(".") + 2; // index of
-																	// dot
-																	// plus two
-																	// empty
-																	// spaces
-				display.setText(selectedHistory.substring(indexOfDot));
+				int indexOfLastSign = 0;
+				if (selectedHistory.contains("of:"))
+				{
+					indexOfLastSign = selectedHistory.indexOf(":") + 2;
+				}
+				else
+				{
+					indexOfLastSign = selectedHistory.indexOf(".") + 2;
+				}
+				getDisplay().setText(selectedHistory.substring(indexOfLastSign));
 			}
 
 			readMemoryList();
@@ -74,7 +73,7 @@ public class HistoryButtonsListeners
 				try
 				{
 					historyMenu.clearCombobox();
-					model.setOpenHistoryUsed(true);
+					getModel().setOpenHistoryUsed(true);
 					FileReader historyFile = new FileReader(pathName);
 					BufferedReader reader = new BufferedReader(historyFile);
 					while ((thisLine = reader.readLine()) != null)
@@ -84,7 +83,7 @@ public class HistoryButtonsListeners
 				}
 				catch (IOException ex)
 				{
-					JOptionPane.showMessageDialog(view, "Open error for \"" + file.getPath()
+					JOptionPane.showMessageDialog(getView(), "Open error for \"" + file.getPath()
 							+ "\" : " + ex.getMessage(), "Unable to Open file",
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -94,15 +93,15 @@ public class HistoryButtonsListeners
 
 	private void readMemoryList()
 	{
-		if (model.isOpenHistoryUsed())
+		if (getModel().isOpenHistoryUsed())
 		{
 			historyMenu.clearCombobox();
-			Stack<String> historyOfExpression = model.getHistoryOfExpression();
+			Stack<String> historyOfExpression = getModel().getHistoryOfExpression();
 			for (String element : historyOfExpression)
 			{
 				historyMenu.addExpressionToCombobox(element);
 			}
-			model.setOpenHistoryUsed(false);
+			getModel().setOpenHistoryUsed(false);
 		}
 	}
 }

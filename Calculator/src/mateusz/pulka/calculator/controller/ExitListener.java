@@ -14,16 +14,13 @@ import javax.swing.JOptionPane;
 import mateusz.pulka.calculator.model.Model;
 import mateusz.pulka.calculator.view.MainFrame;
 
-public class ExitListener
+public class ExitListener extends SuperListeners
 {
-	private MainFrame view;
-	private Model model;
 	private Stack<String> historyOfExpression;
 
 	public ExitListener(MainFrame view, Model model)
 	{
-		this.model = model;
-		this.view = view;
+		super(view, model);
 		view.addExitListener(new listenerForExit());
 		historyOfExpression = model.getHistoryOfExpression();
 	}
@@ -75,8 +72,8 @@ public class ExitListener
 		Date date = new Date();
 		String fileName = dateFormat.format(date);
 
-		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(".\\nowyFolder\\"
-				+ fileName + ".myHistoryEextension", true))))
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName
+				+ ".myHistoryEextension", true))))
 		{
 			while (!historyOfExpression.empty())
 			{
@@ -86,7 +83,8 @@ public class ExitListener
 		}
 		catch (IOException e)
 		{
-			JOptionPane.showMessageDialog(view, "upsss something goes wrong with saving history");
+			JOptionPane.showMessageDialog(getView(),
+					"upsss something goes wrong with saving history");
 		}
 	}
 }
