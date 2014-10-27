@@ -2,6 +2,8 @@ package mateusz.pulka.calculator.view;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -11,8 +13,7 @@ public class HistoryMenu extends JPanel
 {
 	private JButton displaySelectedHistory, readHistoryFromFile;
 	private JComboBox<String> history;
-	private JLabel info, emptyLabel;
-	private static int counter = 1;
+	private JLabel infoTextForCombobox, infoTextForOpenFile;
 
 	public void setTools()
 	{
@@ -25,13 +26,13 @@ public class HistoryMenu extends JPanel
 		readHistoryFromFile = new JButton("Open...");
 		readHistoryFromFile.setToolTipText("Get history from the file");
 		history = new WideComboBox();
-		info = new JLabel("History:");
-		emptyLabel = new JLabel();
+		infoTextForCombobox = new JLabel("History:");
+		infoTextForOpenFile = new JLabel("History from file:");
 
-		this.add(info);
+		this.add(infoTextForCombobox);
 		this.add(history);
 		this.add(displaySelectedHistory);
-		this.add(emptyLabel);
+		this.add(infoTextForOpenFile);
 		this.add(readHistoryFromFile);
 	}
 
@@ -42,18 +43,30 @@ public class HistoryMenu extends JPanel
 
 	public void addReadHistoryActionListener(ActionListener listenerReadHistory)
 	{
-		displaySelectedHistory.addActionListener(listenerReadHistory);
+		readHistoryFromFile.addActionListener(listenerReadHistory);
 	}
 
-	public void addExpressionToCombobox(String expression)
+	public void addExpressionToCombobox(String lastSuccesExpression)
 	{
-		String historyExpression = "" + counter + ". " + expression;
-		history.addItem(historyExpression);
-		counter++;
+		history.addItem(lastSuccesExpression);
 	}
 
 	public String getSelectedItemFromCombobox()
 	{
 		return (String) history.getSelectedItem();
+	}
+
+	public boolean isComboboxEmpty()
+	{
+		if (history.getItemCount() == 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public void clearCombobox()
+	{
+		history.removeAllItems();
 	}
 }

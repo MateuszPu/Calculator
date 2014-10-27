@@ -4,11 +4,15 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Model
 {
 	private boolean isCalculationFinished;
-	private ArrayList<Double> arrayForMedian = new ArrayList<Double>();
+	private ArrayList<Double> arrayForMedian = new ArrayList<>();
+	private Stack<String> historyOfExpression = new Stack<>();
+	private boolean isOpenHistoryUsed;
+	private static int indexOfExpression = 1;
 
 	public BigInteger fibonacci(int place)
 	{
@@ -57,6 +61,12 @@ public class Model
 		return ReversePolishNotationCalc.calc(expressionPostfix);
 	}
 
+	public void addHistoryToList(String mathExpression)
+	{
+		historyOfExpression.add("" + indexOfExpression + ". " + mathExpression);
+		indexOfExpression++;
+	}
+
 	public boolean isCalculationFinished()
 	{
 		return isCalculationFinished;
@@ -75,5 +85,25 @@ public class Model
 	public void setArrayForMedian(ArrayList<Double> arrayForMedian)
 	{
 		this.arrayForMedian = arrayForMedian;
+	}
+
+	public Stack<String> getHistoryOfExpression()
+	{
+		return historyOfExpression;
+	}
+
+	public void setHistoryOfExpression(Stack<String> historyOfExpression)
+	{
+		this.historyOfExpression = historyOfExpression;
+	}
+
+	public boolean isOpenHistoryUsed()
+	{
+		return isOpenHistoryUsed;
+	}
+
+	public void setOpenHistoryUsed(boolean isOpenHistoryUsed)
+	{
+		this.isOpenHistoryUsed = isOpenHistoryUsed;
 	}
 }

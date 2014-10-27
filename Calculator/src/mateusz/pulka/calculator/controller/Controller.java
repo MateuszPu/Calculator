@@ -10,6 +10,7 @@ public class Controller
 	private ToolsButtonsListeners toolsButtonsListeners;
 	private NumbersButtonsListeners numbersButtonsListeners;
 	private HistoryButtonsListeners historyButtonsListeners;
+	private ExitListener exitListener;
 
 	public Controller(MainFrame view, Model model)
 	{
@@ -18,6 +19,7 @@ public class Controller
 		setToolsButtonsListeners(new ToolsButtonsListeners(view, model));
 		setNumbersButtonsListeners(new NumbersButtonsListeners(view, model));
 		setHistoryButtonsListeners(new HistoryButtonsListeners(view, model));
+		setExitListener(new ExitListener(view, model));
 	}
 
 	public MainFrame getView()
@@ -63,6 +65,16 @@ public class Controller
 	public HistoryButtonsListeners getHistoryButtonsListeners()
 	{
 		return historyButtonsListeners;
+	}
+
+	public ExitListener getExitListener()
+	{
+		return exitListener;
+	}
+
+	public void setExitListener(ExitListener exitListener)
+	{
+		this.exitListener = exitListener;
 	}
 
 	public void setHistoryButtonsListeners(HistoryButtonsListeners historyButtonsListeners)

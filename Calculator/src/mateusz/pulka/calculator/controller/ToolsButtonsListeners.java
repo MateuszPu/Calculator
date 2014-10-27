@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.EmptyStackException;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import mateusz.pulka.calculator.model.Model;
@@ -15,8 +15,8 @@ import mateusz.pulka.calculator.view.ToolsMenu;
 
 public class ToolsButtonsListeners
 {
-	private MainFrame view;
 	private Model model;
+	private MainFrame view;
 	private ToolsMenu toolsMenu;
 	private JTextArea display;
 
@@ -194,9 +194,14 @@ public class ToolsButtonsListeners
 				try
 				{
 					String expression = display.getText();
-					ReversePolishNotation onp = new ReversePolishNotation(expression);
-					view.getHistoryMenu().addExpressionToCombobox(expression);
-					String result = nf.format(model.getResult(onp.toString()));
+
+					model.addHistoryToList(expression);
+					Stack<String> historyOfExpression = model.getHistoryOfExpression();
+					String lastSuccesExpression = historyOfExpression.peek();
+					view.getHistoryMenu().addExpressionToCombobox(lastSuccesExpression);
+
+					ReversePolishNotation revPolishNotation = new ReversePolishNotation(expression);
+					String result = nf.format(model.getResult(revPolishNotation.toString()));
 					display.setText(result);
 				}
 				catch (NumberFormatException event)
@@ -206,7 +211,6 @@ public class ToolsButtonsListeners
 			}
 			model.setCalculationFinished(true);
 		}
-
 	}
 
 	class BackspaceListener implements ActionListener
